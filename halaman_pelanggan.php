@@ -7,46 +7,67 @@
     
     
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/jquery-ui.css">
-    <link rel="stylesheet" href="../css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="../css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="../css/aos.css">
-    <link rel="stylesheet" href="../css/style.css">
-    
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <?php
+        $username = $_COOKIE["user"];
+        $email = $_COOKIE['email'];
+        $nama = $_COOKIE['nama'];
+        $level = $_COOKIE['level'];
+
+        if($level !== "pelanggan"){
+            header("location:index.php");
+        }
+    ?>
   </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  <body data-spy='scroll' data-target='.site-navbar-target' data-offset='300'>
   
-  <div class="site-wrap">
+  <div class='site-wrap'>
 
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
+    <div class='site-mobile-menu site-navbar-target'>
+      <div class='site-mobile-menu-header'>
+        <div class='site-mobile-menu-close mt-3'>
+          <span class='icon-close2 js-menu-toggle'></span>
         </div>
       </div>
-      <div class="site-mobile-menu-body"></div>
+      <div class='site-mobile-menu-body'></div>
     </div>
    
     
-    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
-      <div class="container-fluid">
-        <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><a href="../view/halaman_pelanggan.php">Sinar Putri</a></div>
+    <header class='site-navbar py-4 js-sticky-header site-navbar-target' role='banner'>
+      <div class='container-fluid'>
+        <div class='d-flex align-items-center'>
+          <div class='site-logo mr-auto w-25'><a href='#home-section'>Sinar Putri</a></div>
 
-          <div class="mx-auto text-center">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
-                <li><a href="#home-section" class="nav-link">Nama Pelanggan</a></li>
-                <li><a href="#promo-section" class="nav-link">Promo Sinar Putri</a></li>
-                <li><a href="#informasi-section" class="nav-link">Informasi Terbaru</a></li>
+          <div class='mx-auto text-center'>
+            <nav class='site-navigation position-relative text-right' role='navigation'>
+              <ul class='site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0'>
+                <li><a href='#promo-section' class='nav-link'>Promo Sinar Putri</a></li>
+                <li><a href='#informasi-section' class='nav-link'>Informasi Terbaru</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $nama; ?>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Pesanan Saya</a>
+                        <a class="dropdown-item" href="#">History Pemesanan</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Manage Akun</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                    </div>
+                </li>
               </ul>
             </nav>
           </div>
@@ -66,20 +87,17 @@
     <!-- home section -->
     <div class="intro-section" id="home-section">
     
-      <div class="slide-1" style="background-image: url('../images/hero_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row set-top" style="padding-top:180px">
             <div class="col-12">
 
               <div class="row">
                 
-                <div class="col-lg-6">
-                  <h4 data-aos="fade-up" data-aos-delay="100" style="color:#fff"> Alur Pemesanan </h4>
-                  <img src="../images/alur12.svg" data-aos="fade-up" data-aos-delay="100" class="form-box-alur mb-4">
-                </div>
+                <div class="col-lg-2"></div>
 
                 <!-- from login -->
-                <div class="col-lg-5 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
+                <div class="col-lg-8 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
                   <form action="cek_login.php" method="post" class="form-box">
                     <h3 class="h4 text-black mb-4">From Pemesanan</h3>
                     <div class="form-group">
@@ -93,6 +111,8 @@
                     </div>
                   </form>
                 </div>
+
+                <div class="col-lg-2"></div>
 
               </div>
 
@@ -122,7 +142,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="../images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price"><a href="#"> Baca </a></span>
@@ -134,7 +154,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="../images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price"><a href="#"> Baca </a></span>
@@ -146,7 +166,7 @@
             
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="../images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price"><a href="#"> Baca </a></span>
@@ -182,7 +202,7 @@
         <div class="row mb-5 align-items-center">
 
           <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="../images/undraw_youtube_tutorial.svg" alt="Image" class="img-fluid">
+            <img src="images/undraw_youtube_tutorial.svg" alt="Image" class="img-fluid">
           </div>
 
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
@@ -198,7 +218,7 @@
         <div class="row mb-5 align-items-center">
 
           <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="../images/undraw_teaching.svg" alt="Image" class="img-fluid">
+            <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
           </div>
 
           <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
@@ -214,7 +234,7 @@
         <div class="row mb-5 align-items-center">
 
           <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="../images/undraw_teacher.svg" alt="Image" class="img-fluid">
+            <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
           </div>
 
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
@@ -235,10 +255,10 @@
 
       <div class="future-blobs">
         <div class="blob_2">
-          <img src="../images/blob_2.svg" alt="Image">
+          <img src="images/blob_2.svg" alt="Image">
         </div>
         <div class="blob_1">
-          <img src="../images/blob_1.svg" alt="Image">
+          <img src="images/blob_1.svg" alt="Image">
         </div>
       </div>
       <div class="container">
@@ -287,7 +307,7 @@
 
           </div>
           <div class="col-lg-7 align-self-end"  data-aos="fade-left" data-aos-delay="200">
-            <img src="../images/person_transparent.png" alt="Image" class="img-fluid">
+            <img src="images/person_transparent.png" alt="Image" class="img-fluid">
           </div>
         </div>
       </div>
@@ -339,22 +359,21 @@
     
   </div> <!-- .site-wrap -->
 
-  <script src="../js/jquery-3.3.1.min.js"></script>
-  <script src="../js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="../js/jquery-ui.js"></script>
-  <script src="../js/popper.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/owl.carousel.min.js"></script>
-  <script src="../js/jquery.stellar.min.js"></script>
-  <script src="../js/jquery.countdown.min.js"></script>
-  <script src="../js/bootstrap-datepicker.min.js"></script>
-  <script src="../js/jquery.easing.1.3.js"></script>
-  <script src="../js/aos.js"></script>
-  <script src="../js/jquery.fancybox.min.js"></script>
-  <script src="../js/jquery.sticky.js"></script>
-
-  
-  <script src="../js/main.js"></script>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap.bundle.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/main.js"></script>
     
   </body>
 </html>

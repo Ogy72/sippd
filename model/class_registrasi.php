@@ -1,5 +1,5 @@
 <?php
-include "../database.php";
+include "database.php";
 
 class registrasi{
 
@@ -16,26 +16,34 @@ class registrasi{
         $this->conn = $db->connect;
     }
 
+    public function fetch($data){
+        return mysqli_fetch_array($data);
+    }
+
     public function count($data){
         return mysqli_num_rows($data);
     }
 
     public function cek_akun(){
-        $query = "SELECT * FROM pelanggan WHERE username='$this->username' OR email='$this->email'";
-        return mysqli_query($this->conn, $query);
+       return $this->conn->query("SELECT * FROM pelanggan WHERE username='$this->username' OR email='$this->email'");
+    }
 
+    public function read_data(){
+       return $this->conn->query("SELECT * FROM pelanggan WHERE username='$this->username'");
     }
 
     public function insert_data(){
         $this->status = "noactiv";
-        $query = "INSERT INTO pelanggan VALUES('$this->username', '$this->nama', '$this->email', '$this->password', '$this->alamat', '$this->status')";
-        return mysqli_query($this->conn, $query); 
+        return $this->conn->query("INSERT INTO pelanggan VALUES('$this->username', '$this->nama', '$this->email', '$this->password', '$this->alamat', '$this->status')");
     }
 
     public function aktivasi(){
         $this->status = "activ";
-        $query = "UPDATE pelanggan SET status='$this->status' WHERE username='$this->username'";
-        return mysqli_query($this->conn, $query);
+        return $this->conn->query("UPDATE pelanggan SET status='$this->status' WHERE username='$this->username'");
+    }
+
+    public function __destruct(){
+        $this->conn->close();
     }
 }
 ?>

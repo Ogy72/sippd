@@ -196,7 +196,48 @@ jQuery(document).ready(function($) {
 			$('.customPrevBtn').click(function() {
 			  $('.nonloop-block-14').trigger('prev.owl.carousel');
 			})
+        }
+
+        if ( $('.nonloop-block-15').length > 0 ) {
+			$('.nonloop-block-15').owlCarousel({
+		    center: false,
+		    items: 1,
+		    loop: false,
+				stagePadding: 0,
+		    margin: 0,
+		    autoplay: false,
+		    dots: false,
+		    nav: false,
+				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
+		    responsive:{
+	        600:{
+	        	margin: 20,
+	        	nav: true,
+	          items: 1
+	        },
+	        1000:{
+	        	margin: 20,
+	        	stagePadding: 20,
+	        	nav: true,
+	          items: 1
+	        },
+	        1200:{
+	        	margin: 20,
+	        	stagePadding: 20,
+	        	nav: true,
+	          items: 1
+	        }
+		    }
+			});
+
+			$('.customNextBtn').click(function() {
+			  $('.nonloop-block-15').trigger('next.owl.carousel');
+			})
+			$('.customPrevBtn').click(function() {
+			  $('.nonloop-block-15').trigger('prev.owl.carousel');
+			})
 		}
+
 
 
 

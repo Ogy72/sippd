@@ -29,15 +29,21 @@ if(isset($_POST['registrasi'])){
         header("location:../view/registrasi.php?pesan=password");
     }/* end cek kombinasi password */
 
-} 
+} /*proses aktivasi akun */
 else if(isset($_GET['akun'])){
     $regist->username = $_GET['akun'];
-    $akun = $regist->cek_akun();
-    $cek = $regist->count($akun);
-    if($cek > 0){
+    $rd = $regist->read_data();
+    $data = $rd->fetch_array();
+    if($data['username'] == $regist->username){
         $regist->aktivasi();
-        echo "Aktivasi Akun Berhasil";
+        $level = "pelanggan";
+        setcookie("user", $data['username'], strtotime('+7 days'), "/");
+        setcookie("nama", $data['nama'], strtotime('+7 days'), "/");
+        setcookie("email", $data['email'], strtotime('+7 days'), "/");
+        setcookie("pass", $data['password'], strtotime('+7 days'), "/");
+        setcookie("level", $level, strtotime('+7 days'), "/");
+        header("location:controller_login.php");
     } else { echo "Aktivasi Akun Gagal"; }
 } 
-else { echo " Fail Logic"; }/* end sset */
+else { echo " Fail Logic"; }/* end isset */
 ?>

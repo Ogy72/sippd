@@ -8,7 +8,7 @@ class database{
     public $connect;
 
     public function __construct(){
-        $this->connect = mysqli_connect($this->host, $this->uname, $this->pass, $this->db);
+        $this->connect = new mysqli($this->host, $this->uname, $this->pass, $this->db);
     } 
 }
 ?>

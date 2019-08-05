@@ -78,10 +78,25 @@
                   <img src="images/alur12.svg" data-aos="fade-up" data-aos-delay="100" class="form-box-alur mb-4">
                   <p data-aos="fade-up" data-aos-delay="300"><a href="view/registrasi.php" class="btn btn-primary py-3 px-5 btn-pill">Registrasi Sekarang</a></p>
                 </div>
+                <?php   
+                if(isset($_GET['akun'])){
+                    $akun = $_GET['akun'];
+                    $pesan = '';
 
+                    if($akun == 'gagal'){
+                        $pesan = "*Username atau Password Salah";
+                    }
+                    else if($akun == 'noactiv'){
+                        $pesan = "*Akun Anda Belum Aktiv, Harap Cek Email Konfirmasi";
+                    }
+                }
+                else{
+                    $pesan = '';
+                }
+                ?>
                 <!-- from login -->
                 <div class="col-lg-5 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
-                  <form action="cek_login.php" method="post" class="form-box">
+                  <form action="set_login.php" method="post" class="form-box">
                     <h3 class="h4 text-black mb-4">Login</h3>
                     <div class="form-group">
                       <input type="text" name="username" class="form-control" placeholder="Email atau Username" required>
@@ -92,9 +107,9 @@
                     <div class="form-group">
                       <input type="submit" name="login" class="btn btn-primary btn-pill" value="Login">
                     </div>
+                    <p style="color:red"><?php echo $pesan; ?></p>
                   </form>
                 </div>
-
               </div>
 
             </div>
