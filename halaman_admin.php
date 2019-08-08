@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="css/style.css">
 
     <?php
+        include_once "model/class_informasi.php";
+        $inf = new informasi();
+
         $username = $_COOKIE["user"];
         $nama = $_COOKIE['nama'];
         $level = $_COOKIE['level'];
@@ -48,7 +51,7 @@
 <header class='site-navbar py-4 js-sticky-header site-navbar-target' role='banner'>
   <div class='container-fluid'>
     <div class='d-flex align-items-center'>
-      <div class='site-logo mr-auto w-25'><a href='#home-section'>Sinar Putri</a></div>
+      <div class='site-logo mr-auto w-25'><a href='halaman_admin.php'>Sinar Putri</a></div>
 
         <div class='mx-auto text-center'>
             <nav class='site-navigation position-relative text-right' role='navigation'>
@@ -68,7 +71,7 @@
                         <a class="dropdown-item" href="view/menu_data_kurir.php">Data Kurir</a>
                     </div>
                 </li>
-                <li><a href='#promo-section' class='nav-link'>Laporan</a></li>
+                <li><a href='#' class='nav-link'>Laporan</a></li>
                 <li><a href='#' class='nav-link'>Kelola User</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nama; ?></a>
@@ -81,11 +84,26 @@
             </nav>
         </div>
 
+        <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
       </div>
     </div>
   </div>
 </header>
-    
+
+    <?php   
+    if(isset($_GET['post'])){
+        $post = $_GET['post'];
+        $pesan = '';
+
+        if($post == 'gagal'){
+            $pesan = "*Format Gambar Tidak Sesuai";
+        }
+    }
+    else{
+        $pesan = '';
+    }
+    ?>
+   
 
 <!-- Form Input -->
 <div class="intro-section" id="home-section">
@@ -125,6 +143,7 @@
                                     <textarea class="form-control" name="konten" cols="30" rows="10" required></textarea>
                                 </div>
                                 <input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
+                                <p style="color:red"><?php echo $pesan; ?></p>
                             </form>
                             </div>
                         </div>
@@ -154,6 +173,7 @@
                                     <textarea class="form-control" name="konten" cols="30" rows="10" required></textarea>
                                 </div>
                                 <input type="submit" name="simpan" value="Simpan" class="btn btn-primary">
+                                <p style="color:red"><?php echo $pesan; ?></p>
                             </form>
                             </div>
                         </div>
@@ -170,6 +190,153 @@
     </div>
 
 </div>
+
+    <!-- promo section -->
+
+    <?php
+        
+        $data = $inf->read_promo();
+    ?>
+    <div class="site-section courses-title" id="promo-section">
+      <div class="container">
+        <div class="row mb-5 justify-content-center">
+          <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
+            <h2 class="section-title">Promo Sinar Putri</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100">
+      <div class="container">
+        <div class="row">
+
+          <div class="owl-carousel col-12 nonloop-block-14">
+            <?php
+
+            foreach($data as $d){
+                echo "
+                <div class='course bg-white h-100 align-self-stretch' >
+                    <figure class='m-0'>
+                        <a href='#'><img src='img/$d[img]' alt='Image' height='220px' ></a>
+                    </figure>
+                    <div class='course-inner-text py-4 px-4' style='height:250px'>
+                        <span class='course-price' style='background-color:#fff'>
+                            <a href='view/edit_informasi.php?id=$d[id]' class='btn-sm btn-secondary'>Edit</a> 
+                            <a href='controller/controller_informasi.php?id=$d[id]&kat=$d[kategori]' class='btn-sm btn-danger'>Hapus</a>
+                        </span>
+                        <div class='meta'><span class='icon-clock-o'></span>Promo Berlaku Hingga : $d[tgl_post]</div>
+                            <h3>$d[judul]</h3>
+                            <p style='text-align:justify'>$d[kontent]</p>
+                         
+                    </div>
+                </div>";
+            }
+            ?>
+          </div>
+
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-7 text-center">
+            <button class="customPrevBtn btn btn-primary m-1">Prev</button>
+            <button class="customNextBtn btn btn-primary m-1">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- informasi section -->
+    <div class="site-section" id="informasi-section">
+      <div class="container">
+
+        <div class="row mb-5 justify-content-center">
+          <div class="col-lg-7 text-center"  data-aos="fade-up" data-aos-delay="">
+            <h2 class="section-title">Informasi Terbaru</h2>
+            <p>Dapatkan informasi dan berita terbaru dari foto copy sinar putri dalam website ini. Jangan sampai anda ketinggalan, dan dapatkan promo menarik yang dapat anda lihat dalam halaman promo.</p>
+          </div>
+        </div>
+
+        <?php 
+
+            $dat1 = $inf->read_informasi1();
+            echo "
+            <div class='row mb-5 align-items-center'>
+
+                <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat1[img]' alt='Image' class='img-fluid'>
+                </div>
+
+                <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat1[judul]</h2>
+                    <p class='mb-4'>$dat1[kontent]</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/edit_informasi.php?id=$dat1[id]' class='btn-sm btn-secondary'>Edit</a> 
+                            <a href='controller/controller_informasi.php?id=$dat1[id]' class='btn-sm btn-danger'>Hapus</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>";
+
+            $dat2 = $inf->read_informasi2();
+            if(empty($dat2)){
+                echo "";
+            }
+            else{
+            echo "
+            <div class='row mb-5 align-items-center'>
+
+                <div class='col-lg-7 mb-5 order-1 order-lg-2' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat2[img]' alt='Image' class='img-fluid'>
+                </div>
+
+                <div class='col-lg-4 mr-auto order-2 order-lg-1' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat2[judul]</h2>
+                    <p class='mb-4'>$dat2[kontent]</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/edit_informasi.php?id=$dat2[id]' class='btn-sm btn-secondary'>Edit</a> 
+                            <a href='controller/controller_informasi.php?id=$dat2[id]' class='btn-sm btn-danger'>Hapus</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>";
+            }
+
+            $dat3 = $inf->read_informasi3();
+            if(empty($dat3)){
+                echo "";
+            }
+            else {
+            echo "
+            <div class='row mb-5 align-items-center'>
+
+                <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat3[img]' alt='Image' class='img-fluid'>
+                </div>
+
+                <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat3[judul]</h2>
+                    <p class='mb-4'>$dat3[kontent]</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/edit_informasi.php?id=$dat3[id]' class='btn-sm btn-secondary'>Edit</a> 
+                            <a href='controller/controller_informasi.php?id=$dat3[id]' class='btn-sm btn-danger'>Hapus</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>";
+            }
+        ?>
+        <div style="text-align:center"> 
+            <a href="view/list_informasi.php">Lihat Semua Informasi</a>        
+        </div>
+      </div>
+    </div>
+
 
    <!-- footer -->
     <footer class="footer-section bg-white" id="contact-section">

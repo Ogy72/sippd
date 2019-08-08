@@ -208,7 +208,7 @@ jQuery(document).ready(function($) {
 		    autoplay: false,
 		    dots: false,
 		    nav: false,
-				navText: ['<span class="icon-arrow_back">', '<span class="icon-arrow_forward">'],
+				navText: ['', ''],
 		    responsive:{
 	        600:{
 	        	margin: 20,
