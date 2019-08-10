@@ -57,8 +57,8 @@
             <nav class='site-navigation position-relative text-right' role='navigation'>
               <ul class='site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0'>
                 <li class="nav-item dropdown">
-                    <a href='#' class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Input Informasi</a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="nav-link dropdown-toggle" href='#' data-toggle="dropdown">Input Informasi</a>
+                    <div class="dropdown-menu">
                         <a class="customPrevBtn dropdown-item" href="#">Input Informasi Website</a>
                         <a class="customNextBtn dropdown-item" href="#">Input Informasi Promo</a>
                     </div>
@@ -66,7 +66,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Input Data</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="view/menu_data_kertas.php">Data Kertas</a>
+                        <a class="dropdown-item" href="view/data_kertas.php">Data Kertas</a>
                         <a class="dropdown-item" href="view/menu_data_biaya.php">Data Biaya</a>
                         <a class="dropdown-item" href="view/menu_data_kurir.php">Data Kurir</a>
                     </div>
