@@ -21,23 +21,25 @@ class data_kertas{
         return $this->conn->query("SELECT * FROM data_kertas ORDER BY kd_kertas ASC");
     }
 
-    public function read_edit(){
+    public function read_kd(){
         $rd = $this->conn->query("SELECT * FROM data_kertas WHERE kd_kertas='$this->kd_kertas'");
         return $rd->fetch_array();
+    }
+
+    public function query_insert(){
+        return $this->conn->query(
+            "INSERT INTO data_kertas VALUES('$this->kd_kertas', '$this->jenis', '$this->ukuran', '$this->ketebalan','$this->stok')"
+        );
     }
 
     public function insert_data(){
         if($this->jenis == "HVS"){
             $this->hitung_hvs();
-            return $this->conn->query(
-                "INSERT INTO data_kertas VALUES('$this->kd_kertas', '$this->jenis', '$this->ukuran', '$this->ketebalan','$this->stok')"
-            );
+            $this->query_insert();
         }
         else{
             $this->hitung_cover();
-            return $this->conn->query(
-                "INSERT INTO data_kertas VALUES('$this->kd_kertas', '$this->jenis', '$this->ukuran', '$this->ketebalan','$this->stok')"
-            );
+            $this->query_insert();
         }
     }
 
@@ -60,5 +62,10 @@ class data_kertas{
             "DELETE FROM data_kertas WHERE kd_kertas='$this->kd_kertas'"
         );
     }
+
+    public function __destruct(){
+        $this->conn->close();
+    }
+
 }
 ?>

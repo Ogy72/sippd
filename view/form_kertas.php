@@ -28,9 +28,21 @@
         $username = $_COOKIE["user"];
         $nama = $_COOKIE['nama'];
         $level = $_COOKIE['level'];
+        $pesan = "";
 
         if($level !== "admin"){
             header("location:../index.php");
+        }
+
+        if(isset($_GET["msg"])){
+            $msg = $_GET["msg"];
+
+            if($msg == "gagal"){
+                $pesan = "*Data yang Anda Input Sudah Tersedia Dalam Database";
+            }
+            else{ 
+                $pesan = "";
+            }
         }
     ?>
 
@@ -80,7 +92,7 @@
 
                 $form = $_GET["form"];
                 $kertas->kd_kertas = $_GET["kd"];
-                $d = $kertas->read_edit();
+                $d = $kertas->read_kd();
 
                 echo "
                 <!-- form edit data Kertas -->
@@ -174,18 +186,6 @@
                                 if($d["ketebalan"] == "210gsm"){
                                     echo "<option value='210gsm' selected>210gsm</option>";
                                 }else{ echo "<option value='210gsm'>210gsm</option>"; }
-
-                                if($d["ketebalan"] == "230gsm"){
-                                    echo "<option value='230gsm' selected>230gsm</option>";
-                                }else{ echo "<option value='230gsm'>230gsm</option>"; }
-
-                                if($d["ketebalan"] == "310gsm"){
-                                    echo "<option value='310gsm' selected>310gsm</option>";
-                                }else{ echo "<option value='310gsm'>310gsm</option>"; }
-
-                                if($d["ketebalan"] == "350gsm"){
-                                    echo "<option value='350gsm' selected>350gsm</option>";
-                                }else{ echo "<option value='350gsm'>350gsm</option>"; }
                             echo"
                                 </select>
                             </div>
@@ -197,6 +197,7 @@
                             </div>
                         </div>
                         <input type='submit' value='Simpan' name='edit' class='btn btn-info' style='width:100%'>
+                        <p style='color:red'>$pesan</a>
                     </form>
                     </div>
                 </div>
@@ -253,10 +254,7 @@
                                     <option value='80gsm'>80gsm</option>
                                     <option value='150gsm'>150gsm</option>
                                     <option value='210gsm'>210gsm</option>
-                                    <option value='230gsm'>230gsm</option>
-                                    <option value='310gsm'>310gsm</option>
-                                    <option value='350gsm'>350gsm</option>
-                               </select>
+                                </select>
                             </div>
                         </div>
                         <div class='form-group form-row'>
@@ -266,6 +264,7 @@
                             </div>
                         </div>
                         <input type='submit' value='Simpan' name='simpan' class='btn btn-info' style='width:100%'>
+                        <p style='color:red'>$pesan</a>
                     </form>
                     </div>
                 </div>

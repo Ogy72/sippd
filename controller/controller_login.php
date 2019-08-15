@@ -45,7 +45,9 @@ if(isset($_COOKIE['level'])){
             header('location:../index.php?akun=gagal');
         }
     }
-    else { echo "logika login salah"; }
+    else { 
+        header("location:../index.php?shark=notfound-level");
+    }
 }
 /* end kontrol */
 else { echo "kontrol logikamu masih salah ogy..."; }

@@ -42,5 +42,9 @@ class login{
         return $this->data->num_rows;
     }
 
+    public function __destruct(){
+        $this->conn->close();
+    }
+
 }
 ?>

@@ -60,7 +60,8 @@ class informasi{
         return $this->conn->query("UPDATE informasi set kategori='$this->kategori', judul='$this->judul', kontent='$this->konten', tgl_post='$this->tgl_post', img='$this->img' WHERE id='$this->id'");
     }
 
-
-
+    public function __destruct(){
+        $this->conn->close();
+    }
 }
 ?>

@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/style.css">
-
+    
     <?php
         include_once "model/class_informasi.php";
         $inf = new informasi();
@@ -33,50 +33,50 @@
             header("location:index.php");
         }
     ?>
+   
   </head>
-  <body data-spy='scroll' data-target='.site-navbar-target' data-offset='300'>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
-  <div class='site-wrap'>
+  <div class="site-wrap">
 
-    <div class='site-mobile-menu site-navbar-target'>
-      <div class='site-mobile-menu-header'>
-        <div class='site-mobile-menu-close mt-3'>
-          <span class='icon-close2 js-menu-toggle'></span>
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
         </div>
       </div>
-      <div class='site-mobile-menu-body'></div>
+      <div class="site-mobile-menu-body"></div>
     </div>
    
     
-<header class='site-navbar py-4 js-sticky-header site-navbar-target' role='banner'>
-  <div class='container-fluid'>
-    <div class='d-flex align-items-center'>
-      <div class='site-logo mr-auto w-25'><a href='halaman_admin.php'>Sinar Putri</a></div>
-
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <div class="site-logo mr-auto w-25"><a href="halaman_admin.php">Sinar Putri</a></div>
+        
         <div class='mx-auto text-center'>
             <nav class='site-navigation position-relative text-right' role='navigation'>
               <ul class='site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0'>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href='#' data-toggle="dropdown">Input Informasi</a>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Input Informasi</a>
                     <div class="dropdown-menu">
                         <a class="customPrevBtn dropdown-item" href="#">Input Informasi Website</a>
                         <a class="customNextBtn dropdown-item" href="#">Input Informasi Promo</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Input Data</a>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Input Data</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="view/data_kertas.php">Data Kertas</a>
-                        <a class="dropdown-item" href="view/menu_data_biaya.php">Data Biaya</a>
-                        <a class="dropdown-item" href="view/menu_data_kurir.php">Data Kurir</a>
+                        <a class="dropdown-item" href="view/data_biaya.php">Data Biaya</a>
+                        <a class="dropdown-item" href="view/data_kurir.php">Data Kurir</a>
                     </div>
                 </li>
                 <li><a href='#' class='nav-link'>Laporan</a></li>
-                <li><a href='#' class='nav-link'>Kelola User</a></li>
+                <li><a href='view/data_user.php' class='nav-link'>Kelola User</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nama; ?></a>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><?php echo $nama; ?></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Manage Akun</a>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
@@ -84,13 +84,11 @@
             </nav>
         </div>
 
-        <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
+        </div>
       </div>
-    </div>
-  </div>
-</header>
+    </header>
 
-    <?php   
+<?php   
     if(isset($_GET['post'])){
         $post = $_GET['post'];
         $pesan = '';
@@ -102,11 +100,9 @@
     else{
         $pesan = '';
     }
-    ?>
-   
-
-<!-- Form Input -->
-<div class="intro-section" id="home-section">
+?>   
+    <!-- home section -->
+ <div class="intro-section" id="home-section">
     
     <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -189,7 +185,7 @@
         </div>
     </div>
 
-</div>
+</div>   
 
     <!-- promo section -->
 
@@ -336,9 +332,7 @@
         </div>
       </div>
     </div>
-
-
-   <!-- footer -->
+    <!-- foter section -->
     <footer class="footer-section bg-white" id="contact-section">
       <div class="container">
         <div class="row">
@@ -389,7 +383,6 @@
   <script src="js/jquery-ui.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/bootstrap.bundle.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/jquery.stellar.min.js"></script>
   <script src="js/jquery.countdown.min.js"></script>
@@ -398,6 +391,8 @@
   <script src="js/aos.js"></script>
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
+
+  
   <script src="js/main.js"></script>
     
   </body>
