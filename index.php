@@ -20,7 +20,13 @@
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/style.css">
-    
+
+    <?php  
+        include_once "model/class_informasi.php";
+            $inf = new informasi();
+
+    ?>   
+
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -69,13 +75,13 @@
       <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row set-top" style="padding-top:180px">
-            <div class="col-12">
+            <div class="col-12 col-sm-12 col-lg-12">
 
               <div class="row">
                 
-                <div class="col-lg-6">
+                <div class="col-12 col-sm-6 col-lg-6">
                   <h4 data-aos="fade-up" data-aos-delay="100" style="color:#fff"> Alur Pemesanan </h4>
-                  <img src="images/alur12.svg" data-aos="fade-up" data-aos-delay="100" class="form-box-alur mb-4">
+                  <img src="images/alur12.svg" data-aos="fade-up" data-aos-delay="100" class="form-box-alur mb-4 img-fluid">
                   <p data-aos="fade-up" data-aos-delay="300"><a href="view/registrasi.php" class="btn btn-primary py-3 px-5 btn-pill">Registrasi Sekarang</a></p>
                 </div>
                 <?php   
@@ -95,7 +101,7 @@
                 }
                 ?>
                 <!-- from login -->
-                <div class="col-lg-5 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
+                <div class="col-12 col-sm-5 col-lg-5 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
                   <form action="set_login.php" method="post" class="form-box">
                     <h3 class="h4 text-black mb-4">Login</h3>
                     <div class="form-group">
@@ -121,6 +127,10 @@
 
 
     <!-- promo section -->
+    <?php
+        
+        $data = $inf->read_promo();
+    ?>
     <div class="site-section courses-title" id="promo-section">
       <div class="container">
         <div class="row mb-5 justify-content-center">
@@ -136,41 +146,25 @@
 
           <div class="owl-carousel col-12 nonloop-block-14">
 
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price"><a href="#"> Baca </a></span>
-                <div class="meta"><span class="icon-clock-o"></span>Promo Berlaku Hingga : 29-07-2019</div>
-                <h3>Gratis Pemesanan</h3>
-                <p>Gratis cetak dokumen dengan menggunakan kupon promo. dapatkan kupon promo di toko kami, syarat & ketentuan berlaku</p>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price"><a href="#"> Baca </a></span>
-                <div class="meta"><span class="icon-clock-o"></span>Promo Berlaku Hingga : 29-07-2019</div>
-                <h3>Gratis Pemesanan</h3>
-                <p>Gratis cetak dokumen dengan menggunakan kupon promo. dapatkan kupon promo di toko kami, syarat & ketentuan berlaku</p>
-              </div>
-            </div>
-            
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price"><a href="#"> Baca </a></span>
-                <div class="meta"><span class="icon-clock-o"></span>Promo Berlaku Hingga : 29-07-2019</div>
-                <h3>Gratis Pemesanan</h3>
-                <p>Gratis cetak dokumen dengan menggunakan kupon promo. dapatkan kupon promo di toko kami, syarat & ketentuan berlaku</p>
-              </div>
-            </div>
+            <?php
+            foreach($data as $d){
+                echo "
+                <div class='course bg-white h-100 align-self-stretch' >
+                    <figure class='m-0'>
+                        <a href='#'><img src='img/$d[img]' alt='Image' height='220px' ></a>
+                    </figure>
+                    <div class='course-inner-text py-4 px-4' style='height:250px'>
+                        <span class='course-price' style='background-color:#fff'>
+                            <a href='view/view-informasi2.php?id=$d[id]' class='btn-sm btn-primary'>Baca Selengkapnya</a>
+                        </span>
+                        <div class='meta'><span class='icon-clock-o'></span>Promo Berlaku Hingga : $d[tgl_post]</div>
+                            <h3>$d[judul]</h3>
+                            <p style='text-align:justify'>$d[kontent]</p>
+                         
+                    </div>
+                </div>";
+            }
+            ?>
 
           </div>
 
@@ -195,56 +189,86 @@
           </div>
         </div>
 
-        <div class="row mb-5 align-items-center">
+        <?php 
+            $dat1 = $inf->read_informasi1();
+            $konten = substr($dat1["kontent"],0,450);
+            echo "
+            <div class='row mb-5 align-items-center'>
 
-          <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_youtube_tutorial.svg" alt="Image" class="img-fluid">
-          </div>
+                <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat1[img]' alt='Image' width='105%' height='450px'>
+                </div>
 
-          <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Kami Berkomitmen Dalam Memberikan Jasa Terbaik</h2>
-            <p class="mb-4">Dalam memberikan jasa dan pelayanan terbaik kemi berupaya berekspansi dengan menghadirkan sistem informasi pemesanan cetak dokumen guna memberikan kemudahan dan pengalaman yang menarik dalam melakukan cetak dokumen pada foto copy sinar putri</p>
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <div><h3 class="m-0"><a href="#">Baca Selengkapnya ...</a></h3></div>
-            </div>
-          </div>
+                <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat1[judul]</h2>
+                    <p>di post pada - $dat1[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/view-informasi2.php?id=$dat1[id]'>Baca Selengkapnya ...</a> 
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+            </div>";
 
-        <div class="row mb-5 align-items-center">
+            $dat2 = $inf->read_informasi2();
+            $konten2 = substr($dat2["kontent"],0,450);
+            if(empty($dat2)){
+                echo "";
+            }
+            else{
+            echo "
+            <div class='row mb-5 align-items-center'>
 
-          <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
-          </div>
+                <div class='col-lg-7 mb-5 order-1 order-lg-2' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat2[img]' alt='Image' width='105%' height='450px'>
+                </div>
 
-          <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Kami Berkomitmen Dalam Memberikan Jasa Terbaik</h2>
-            <p class="mb-4">Dalam memberikan jasa dan pelayanan terbaik kemi berupaya berekspansi dengan menghadirkan sistem informasi pemesanan cetak dokumen guna memberikan kemudahan dan pengalaman yang menarik dalam melakukan cetak dokumen pada foto copy sinar putri</p>
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <div><h3 class="m-0"><a href="#">Baca Selengkapnya ...</a></h3></div>
-            </div>
-          </div>
+                <div class='col-lg-4 mr-auto order-2 order-lg-1' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat2[judul]</h2>
+                    <p>di post pada - $dat2[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten2</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/view-informasi2.php?id=$dat2[id]'>Baca Selengkapnya ...</a> 
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+            </div>";
+            }
 
-        <div class="row mb-5 align-items-center">
+            $dat3 = $inf->read_informasi3();
+            $konten3 = substr($dat3["kontent"],0,450);
+            if(empty($dat3)){
+                echo "";
+            }
+            else {
+            echo "
+            <div class='row mb-5 align-items-center'>
 
-          <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
-          </div>
+                <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat3[img]' alt='Image' width='105%' height='450px'>
+                </div>
 
-          <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Kami Berkomitmen Dalam Memberikan Jasa Terbaik</h2>
-            <p class="mb-4">Dalam memberikan jasa dan pelayanan terbaik kemi berupaya berekspansi dengan menghadirkan sistem informasi pemesanan cetak dokumen guna memberikan kemudahan dan pengalaman yang menarik dalam melakukan cetak dokumen pada foto copy sinar putri</p>
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <div><h3 class="m-0"><a href="#">Baca Selengkapnya ...</a></h3></div>
-            </div>
-          </div>
+                <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat3[judul]</h2>
+                    <p>di post pada - $dat3[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten3</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/view-informasi2.php?id=$dat3[id]'>Baca Selengkapnya ...</a> 
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+            </div>";
+            }
+        ?>
+      </div><!--end container-->
+    </div><!--end site-section-->
 
-      </div>
-    </div>
 
     
     <div class="site-section pb-0">
@@ -257,6 +281,7 @@
           <img src="images/blob_1.svg" alt="Image">
         </div>
       </div>
+
       <div class="container">
         <div class="row mb-5 justify-content-center" data-aos="fade-up" data-aos-delay="">
           <div class="col-lg-7 text-center">
@@ -298,20 +323,20 @@
                 <div><h3 class="m-0">Kami Memiliki Karyawan Kompeten</h3></div>
               </div>
 
-            </div>
+            </div><!--end why choose box-->
 
-
-          </div>
+          </div><!--end col-lg-4-->
           <div class="col-lg-7 align-self-end"  data-aos="fade-left" data-aos-delay="200">
             <img src="images/person_transparent.png" alt="Image" class="img-fluid">
           </div>
-        </div>
-      </div>
-    </div>
+        </div><!--end row-->
+      </div><!--end container-->
+    </div><!--end section pb-0 -->
 
      
     <footer class="footer-section bg-white" id="contact-section">
       <div class="container">
+
         <div class="row">
           <div class="col-md-4">
             <h3>Tentang Fotocopy Sinar Putri</h3>
@@ -333,26 +358,24 @@
             <a href="#"> 0811-2222-3333</a>
             <p>Note: Hanya Melayani Pada jam Kerja</p>
           </div>
-
         </div>
 
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <div class="border-top pt-5">
             <p>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-      </p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
             </div>
           </div>
-          
         </div>
+
       </div>
     </footer>
 
   
-    
   </div> <!-- .site-wrap -->
 
   <script src="js/jquery-3.3.1.min.js"></script>

@@ -30,19 +30,41 @@
         if($level !== "pelanggan"){
             header("location:index.php");
         }
+
+        include_once "model/class_informasi.php";
+            $inf = new informasi();
     ?>
   </head>
   <body data-spy='scroll' data-target='.site-navbar-target' data-offset='300'>
   
   <div class='site-wrap'>
 
+    <!-- mobile menu -->
     <div class='site-mobile-menu site-navbar-target'>
-      <div class='site-mobile-menu-header'>
-        <div class='site-mobile-menu-close mt-3'>
-          <span class='icon-close2 js-menu-toggle'></span>
+        <div class='site-mobile-menu-header'>
+            <div class='site-mobile-menu-close mt-3'>
+                <span class='icon-close2 js-menu-toggle'></span>
+            </div>
         </div>
-      </div>
-      <div class='site-mobile-menu-body'></div>
+        <div>
+          <ul class='site-menu main-menu js-clone-nav mx-auto d-lg-block  m-0 p-0'>
+            <li class='nav-link'><a href='#promo-section' >Promo Sinar Putri</a></li>
+            <li class='nav-link'><a href='#informasi-section'>Informasi Terbaru</a></li>
+            <li class="nav-item dropdown nav-link">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                    <?php echo $nama; ?>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Pesanan Saya</a>
+                    <a class="dropdown-item" href="#">History Pemesanan</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="view/manage_akun.php?usr=<?php echo $username ?>">Manage Akun</a>
+                    <a class="dropdown-item" href="logout.php">Logout</a>
+                </div>
+                <li class="cta nav-link"><a href="#contact-section"><span>Hubungi Kami</span></a></li>
+            </li>
+          </ul>
+        </div>
     </div>
    
     
@@ -57,14 +79,14 @@
                 <li><a href='#promo-section' class='nav-link'>Promo Sinar Putri</a></li>
                 <li><a href='#informasi-section' class='nav-link'>Informasi Terbaru</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                         <?php echo $nama; ?>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Pesanan Saya</a>
                         <a class="dropdown-item" href="#">History Pemesanan</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Manage Akun</a>
+                        <a class="dropdown-item" href="view/manage_akun.php?usr=<?php echo $username ?>">Manage Akun</a>
                         <a class="dropdown-item" href="logout.php">Logout</a>
                     </div>
                 </li>
@@ -83,7 +105,7 @@
         </div>
       </div>
     </header>
-    
+
     <!-- home section -->
     <div class="intro-section" id="home-section">
     
@@ -125,6 +147,10 @@
 
 
     <!-- promo section -->
+    <?php
+        
+        $data = $inf->read_promo();
+    ?>
     <div class="site-section courses-title" id="promo-section">
       <div class="container">
         <div class="row mb-5 justify-content-center">
@@ -140,41 +166,25 @@
 
           <div class="owl-carousel col-12 nonloop-block-14">
 
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price"><a href="#"> Baca </a></span>
-                <div class="meta"><span class="icon-clock-o"></span>Promo Berlaku Hingga : 29-07-2019</div>
-                <h3>Gratis Pemesanan</h3>
-                <p>Gratis cetak dokumen dengan menggunakan kupon promo. dapatkan kupon promo di toko kami, syarat & ketentuan berlaku</p>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price"><a href="#"> Baca </a></span>
-                <div class="meta"><span class="icon-clock-o"></span>Promo Berlaku Hingga : 29-07-2019</div>
-                <h3>Gratis Pemesanan</h3>
-                <p>Gratis cetak dokumen dengan menggunakan kupon promo. dapatkan kupon promo di toko kami, syarat & ketentuan berlaku</p>
-              </div>
-            </div>
-            
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price"><a href="#"> Baca </a></span>
-                <div class="meta"><span class="icon-clock-o"></span>Promo Berlaku Hingga : 29-07-2019</div>
-                <h3>Gratis Pemesanan</h3>
-                <p>Gratis cetak dokumen dengan menggunakan kupon promo. dapatkan kupon promo di toko kami, syarat & ketentuan berlaku</p>
-              </div>
-            </div>
+            <?php
+            foreach($data as $d){
+                echo "
+                <div class='course bg-white h-100 align-self-stretch' >
+                    <figure class='m-0'>
+                        <a href='#'><img src='img/$d[img]' alt='Image' height='220px' ></a>
+                    </figure>
+                    <div class='course-inner-text py-4 px-4' style='height:250px'>
+                        <span class='course-price' style='background-color:#fff'>
+                            <a href='view/view-informasi.php?id=$d[id]' class='btn-sm btn-primary'>Baca Selengkapnya</a>
+                        </span>
+                        <div class='meta'><span class='icon-clock-o'></span>Promo Berlaku Hingga : $d[tgl_post]</div>
+                            <h3>$d[judul]</h3>
+                            <p style='text-align:justify'>$d[kontent]</p>
+                         
+                    </div>
+                </div>";
+            }
+            ?>
 
           </div>
 
@@ -199,57 +209,85 @@
           </div>
         </div>
 
-        <div class="row mb-5 align-items-center">
+        <?php 
+            $dat1 = $inf->read_informasi1();
+            $konten = substr($dat1["kontent"],0,450);
+            echo "
+            <div class='row mb-5 align-items-center'>
 
-          <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_youtube_tutorial.svg" alt="Image" class="img-fluid">
-          </div>
+                <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat1[img]' alt='Image' width='105%' height='450px'>
+                </div>
 
-          <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Kami Berkomitmen Dalam Memberikan Jasa Terbaik</h2>
-            <p class="mb-4">Dalam memberikan jasa dan pelayanan terbaik kemi berupaya berekspansi dengan menghadirkan sistem informasi pemesanan cetak dokumen guna memberikan kemudahan dan pengalaman yang menarik dalam melakukan cetak dokumen pada foto copy sinar putri</p>
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <div><h3 class="m-0"><a href="#">Baca Selengkapnya ...</a></h3></div>
-            </div>
-          </div>
+                <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat1[judul]</h2>
+                    <p>di post pada - $dat1[tgl_post]</p>
+                    <p class='mb-4 text-justify'>$konten</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/view-informasi.php?id=$dat1[id]'>Baca Selengkapnya ...</a> 
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+            </div>";
 
-        <div class="row mb-5 align-items-center">
+            $dat2 = $inf->read_informasi2();
+            $konten2 = substr($dat2["kontent"],0,450);
+            if(empty($dat2)){
+                echo "";
+            }
+            else{
+            echo "
+            <div class='row mb-5 align-items-center'>
 
-          <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
-          </div>
+                <div class='col-lg-7 mb-5 order-1 order-lg-2' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat2[img]' alt='Image' width='105%' height='450px'>
+                </div>
 
-          <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Kami Berkomitmen Dalam Memberikan Jasa Terbaik</h2>
-            <p class="mb-4">Dalam memberikan jasa dan pelayanan terbaik kemi berupaya berekspansi dengan menghadirkan sistem informasi pemesanan cetak dokumen guna memberikan kemudahan dan pengalaman yang menarik dalam melakukan cetak dokumen pada foto copy sinar putri</p>
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <div><h3 class="m-0"><a href="#">Baca Selengkapnya ...</a></h3></div>
-            </div>
-          </div>
+                <div class='col-lg-4 mr-auto order-2 order-lg-1' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat2[judul]</h2>
+                    <p>di post pada - $dat2[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten2</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/view-inforamsi.php?id=$dat2[id]'>Baca Selengkapnya ...</a> 
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+            </div>";
+            }
 
-        <div class="row mb-5 align-items-center">
+            $dat3 = $inf->read_informasi3();
+            $konten3 = substr($dat3["kontent"],0,450);
+            if(empty($dat3)){
+                echo "";
+            }
+            else {
+            echo "
+            <div class='row mb-5 align-items-center'>
 
-          <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
-          </div>
+                <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
+                    <img src='img/$dat3[img]' alt='Image' width='105%' height='450px'>
+                </div>
 
-          <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Kami Berkomitmen Dalam Memberikan Jasa Terbaik</h2>
-            <p class="mb-4">Dalam memberikan jasa dan pelayanan terbaik kemi berupaya berekspansi dengan menghadirkan sistem informasi pemesanan cetak dokumen guna memberikan kemudahan dan pengalaman yang menarik dalam melakukan cetak dokumen pada foto copy sinar putri</p>
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <div><h3 class="m-0"><a href="#">Baca Selengkapnya ...</a></h3></div>
-            </div>
-          </div>
+                <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
+                    <h2 class='text-black mb-4'>$dat3[judul]</h2>
+                    <p>di post pada - $dat3[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten3</p>
+                    <div class='d-flex align-items-center custom-icon-wrap mb-3'>
+                        <div>
+                            <a href='view/view-informasi.php?id=$dat3[id]'>Baca Selengkapnya ...</a> 
+                        </div>
+                    </div>
+                </div>
 
-        </div>
-
-      </div>
-    </div>
-
+            </div>";
+            }
+        ?>
+      </div><!--end container-->
+    </div><!--end site-section-->
     
     <div class="site-section pb-0">
 
@@ -364,7 +402,6 @@
   <script src="js/jquery-ui.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/bootstrap.bundle.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/jquery.stellar.min.js"></script>
   <script src="js/jquery.countdown.min.js"></script>

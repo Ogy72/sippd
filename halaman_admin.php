@@ -82,6 +82,7 @@
                 </li>
               </ul>
             </nav>
+            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
         </div>
 
         </div>
@@ -255,16 +256,18 @@
         <?php 
 
             $dat1 = $inf->read_informasi1();
+            $konten = substr($dat1["kontent"],0,450);
             echo "
             <div class='row mb-5 align-items-center'>
 
                 <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
-                    <img src='img/$dat1[img]' alt='Image' class='img-fluid'>
+                    <img src='img/$dat1[img]' alt='Image' width='105%' height='450px'>
                 </div>
 
                 <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
                     <h2 class='text-black mb-4'>$dat1[judul]</h2>
-                    <p class='mb-4'>$dat1[kontent]</p>
+                    <p>di post pada - $dat1[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten</p>
                     <div class='d-flex align-items-center custom-icon-wrap mb-3'>
                         <div>
                             <a href='view/edit_informasi.php?id=$dat1[id]' class='btn-sm btn-secondary'>Edit</a> 
@@ -276,6 +279,7 @@
             </div>";
 
             $dat2 = $inf->read_informasi2();
+            $konten2 = substr($dat2["kontent"],0,450);
             if(empty($dat2)){
                 echo "";
             }
@@ -284,12 +288,13 @@
             <div class='row mb-5 align-items-center'>
 
                 <div class='col-lg-7 mb-5 order-1 order-lg-2' data-aos='fade-up' data-aos-delay='100'>
-                    <img src='img/$dat2[img]' alt='Image' class='img-fluid'>
+                    <img src='img/$dat2[img]' alt='Image' width='105%' height='450px'>
                 </div>
 
                 <div class='col-lg-4 mr-auto order-2 order-lg-1' data-aos='fade-up' data-aos-delay='200'>
                     <h2 class='text-black mb-4'>$dat2[judul]</h2>
-                    <p class='mb-4'>$dat2[kontent]</p>
+                    <p>di post pada - $dat2[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten2</p>
                     <div class='d-flex align-items-center custom-icon-wrap mb-3'>
                         <div>
                             <a href='view/edit_informasi.php?id=$dat2[id]' class='btn-sm btn-secondary'>Edit</a> 
@@ -302,6 +307,7 @@
             }
 
             $dat3 = $inf->read_informasi3();
+            $konten3 = substr($dat3["kontent"],0,450);
             if(empty($dat3)){
                 echo "";
             }
@@ -310,12 +316,13 @@
             <div class='row mb-5 align-items-center'>
 
                 <div class='col-lg-7 mb-5' data-aos='fade-up' data-aos-delay='100'>
-                    <img src='img/$dat3[img]' alt='Image' class='img-fluid'>
+                    <img src='img/$dat3[img]' alt='Image' width='105%' height='450px'>
                 </div>
 
                 <div class='col-lg-4 ml-auto' data-aos='fade-up' data-aos-delay='200'>
                     <h2 class='text-black mb-4'>$dat3[judul]</h2>
-                    <p class='mb-4'>$dat3[kontent]</p>
+                    <p>di post pada - $dat3[tgl_post]</p>
+                    <p class='mb-4' style='text-align:justify'>$konten3</p>
                     <div class='d-flex align-items-center custom-icon-wrap mb-3'>
                         <div>
                             <a href='view/edit_informasi.php?id=$dat3[id]' class='btn-sm btn-secondary'>Edit</a> 
@@ -391,8 +398,6 @@
   <script src="js/aos.js"></script>
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
-
-  
   <script src="js/main.js"></script>
     
   </body>
