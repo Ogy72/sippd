@@ -68,9 +68,8 @@
         <div class="container">
           <div class="row">
 
-                <div class="col-lg-1"></div>
                <!-- from Registrasi -->
-                <div class="col-lg-10" style="margin-top:100px" data-aos="fade-up" data-aos-delay="500">
+                <div class=" col-12 col-sm-12 col-lg-12" style="margin-top:100px" data-aos="fade-up" data-aos-delay="500">
                   <form action="../controller/controller_registrasi.php" method="post" class="form-box-reg">
                 <?php
                     if(isset($_GET['pesan'])){
@@ -86,41 +85,51 @@
                             $this_pesan .='';
                         }
 
-                        echo "<p style='color:red'> $this_pesan</p>";
+                        echo "<small class='text-danger float-right'> $this_pesan</small>";
                     }
 
                 ?> 
  
                     <h3 class="h4 text-black mb-3">Registrasi</h3>
-                    <div class="form-group">
-                      <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="username" class="form-control" placeholder="Username" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="email" name="email" class="form-control" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="text" name="alamat" class="form-control" placeholder="Alamat" required>
-                    </div>
-                    <div class="form-group">
-                      <input type="password" name="password1" class="form-control" placeholder="Password" required>
-                    </div> 
-                    <div class="form-group">
-                      <input type="password" name="password2" class="form-control" placeholder="Retype-password" required>
-                    </div>
-                    <div class="form-row mt-sm-4">
-                        <div class="col-7">
-                            <input type="submit" name="registrasi" class="btn btn-primary btn-pill" style="width:70%" value="Registrasi">
+                    <div class="form-row">
+                        <div class='form-group col-12 col-sm-4 col-lg-4'>
+                            <label for='nama' class='text-body'>Nama Lengkap</label>
+                            <input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" required>
                         </div>
-                        <div class="col-5" style="padding-top:18px; text-align:right">
-                            <a href="../index.php"> Sudah Punya Akun ? </a>
+                        <div class="form-group col-12 col-sm-4 col-lg-4">
+                            <label for='username' class='text-body'>Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Gunakan Username yang mudah diingat" required>
+                        </div>
+                        <div class="form-group col-12 col-sm-4 col-lg-4">
+                            <label for='email' class='text-body'>Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class='form-group col-12 col-sm-12 col-lg-12'>
+                            <label for='alamat' class='text-body'>Alamat</label>
+                            <textarea class="form-control" name="alamat" cols="3" rows="3"></textarea>
+                            <small class='form-text text-muted'>Note: Harap menuliskan alamat dengan lengkap disertai nomor telepon/Hp</small> 
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class='form-group col-12 col-sm-6 col-lg-6'>
+                            <label for='password1' class='text-body'>Password</label>
+                            <input type="password" name="password1" class="form-control" placeholder="Password" required>
+                        </div>
+                        <div class="form-group col-12 col-sm-6 col-lg-6">
+                            <label for='password2' class='text-body'>Konfirmasi Password</label>
+                            <input type="password" name="password2" class="form-control" placeholder="Retype-password" required>
+                        </div>
+                    </div> 
+                    <div class="form-row mt-sm-4">
+                        <div class='col-12 col-sm-12 col-lg-12'>
+                            <input type="submit" name="registrasi" class="btn btn-primary float-right" value="Registrasi">
+                            <a class='float-left pt-3' href="../index.php"> Sudah Punya Akun ? </a>
                         </div>
                     </div>
                   </form>
                 </div>
-                <div class="col-lg-1"></div>                
 
           </div>
         </div>

@@ -191,9 +191,13 @@
                             </div>
                         </div>
                         <div class='form-group form-row'>
-                            <div class='col-12'>
+                            <div class='col-6 col-sm-5'>
                                 <label for='stok'>Stok Kertas</label>
-                                <input class='form-control' type='text' name='stok' value='$d[stok]' required placeholder='Masukkan Stok Kertas'>
+                                <input class='form-control' type='text' name='stok' value='$d[stok]' required placeholder='Stok Kertas Dalam Jumlah Satuan'>
+                            </div>
+                            <div class='form-group col-7'>
+                                <label for='warna'>Warna</label>
+                                <input type='text' name='warna' class='form-control' value='$d[warna]' placeholder='Masukkan Warna Kertas Terutama Untuk Cover' required> 
                             </div>
                         </div>
                         <input type='submit' value='Simpan' name='edit' class='btn btn-info' style='width:100%'>
@@ -258,9 +262,13 @@
                             </div>
                         </div>
                         <div class='form-group form-row'>
-                            <div class='col-12'>
+                            <div class='col-6 col-sm-5'>
                                 <label for='stok'>Stok Kertas</label>
-                                <input class='form-control' type='text' name='jumlah' required placeholder='Masukkan Stok Kertas Dalam Jumlah Satuan'>
+                                <input class='form-control' type='text' name='jumlah' required placeholder='Stok Kertas Dalam Jumlah Satuan'>
+                            </div>
+                            <div class='form-group col-7'>
+                                <label for='warna'>Warna</label>
+                                <input type='text' name='warna' class='form-control' placeholder='Masukkan Warna Kertas Terutama Untuk Cover' required> 
                             </div>
                         </div>
                         <input type='submit' value='Simpan' name='simpan' class='btn btn-info' style='width:100%'>

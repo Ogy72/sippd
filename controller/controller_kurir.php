@@ -5,7 +5,7 @@ $kurir = new data_kurir();
 /* proses simpan logika */
 if(isset($_POST["simpan"])){
 
-  $kurir->kd_kurir = $_POST["kd_kurir"];
+  $kurir->id_kurir = $_POST["id_kurir"];
   $kurir->label_kurir = $_POST["label_kurir"];
   $kurir->tarif_minimum = $_POST["tarif_minimum"];
   $kurir->tarif_km = $_POST["tarif_km"];
@@ -14,20 +14,12 @@ if(isset($_POST["simpan"])){
     /* proses simpan */
     if($button == "simpan"){
 
-        $rd = $kurir->cek();
-        if($kurir->kd_kurir == $rd["kd_kurir"]){
-          header("location:../view/form_kurir.php?msg=gagal");
-        }
-        else{
           $kurir->insert();
           header("location:../view/data_kurir.php");
-        }
     }
     /* proses edit */ 
     else if($button == "edit"){
         
-        $kurir->kd_kurir2 = $_POST["kd_kurir2"];
-
         $kurir->update();
         header("location:../view/data_kurir.php");
     }
@@ -36,7 +28,7 @@ if(isset($_POST["simpan"])){
 }
 /* proses hapus data kurir */
 else if(isset($_GET["kd"])){
-    $kurir->kd_kurir = $_GET["kd"];
+    $kurir->id_kurir = $_GET["kd"];
 
     $kurir->delete();
     header("location:../view/data_kurir.php");

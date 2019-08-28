@@ -9,6 +9,7 @@ if(isset($_POST["simpan"])){
     $kertas->jenis = $_POST["jenis"];
     $kertas->ukuran = $_POST["ukuran"];
     $kertas->ketebalan = $_POST["ketebalan"];
+    $kertas->warna = $_POST["warna"];
     $kertas->jumlah = $_POST["jumlah"];
 
     $rd = $kertas->read_kd();
@@ -28,6 +29,7 @@ else if(isset($_POST["edit"])){
     $kertas->jenis = $_POST["jenis"];
     $kertas->ukuran = $_POST["ukuran"];
     $kertas->ketebalan = $_POST["ketebalan"];
+    $kertas->warna = $_POST["warna"];
     $kertas->stok = $_POST["stok"];
 
     $kertas->update_data();

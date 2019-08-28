@@ -82,7 +82,7 @@
                 <div class="col-12 col-sm-6 col-lg-6">
                   <h4 data-aos="fade-up" data-aos-delay="100" style="color:#fff"> Alur Pemesanan </h4>
                   <img src="images/alur12.svg" data-aos="fade-up" data-aos-delay="100" class="form-box-alur mb-4 img-fluid">
-                  <p data-aos="fade-up" data-aos-delay="300"><a href="view/registrasi.php" class="btn btn-primary py-3 px-5 btn-pill">Registrasi Sekarang</a></p>
+                  <p data-aos="fade-up" data-aos-delay="300"></p>
                 </div>
                 <?php   
                 if(isset($_GET['akun'])){
@@ -111,7 +111,8 @@
                       <input type="password" name="password" class="form-control" placeholder="Password" required>
                     </div> 
                     <div class="form-group">
-                      <input type="submit" name="login" class="btn btn-primary btn-pill" value="Login">
+                        <input type="submit" name="login" class="btn btn-primary btn-pill" value="Login">
+                        <a href="view/registrasi.php" class="float-right" style='text-decoration:underline'>Registrasi</a>
                     </div>
                     <p style="color:red"><?php echo $pesan; ?></p>
                   </form>

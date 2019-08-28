@@ -84,12 +84,13 @@
                     <table class="table table-bordered table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th width='25%'>Kode Kertas</th>
+                                <th width='17%'>Kode Kertas</th>
                                 <th width='15%'>jenis</th>
                                 <th width='15%'>ukuran</th>
                                 <th width='15%'>ketebalan</th>
-                                <th width='15%'>stok</th>
-                                <th width='15%' style='text-align:center'>option</th>
+                                <th width='15%'>Warna</th>
+                                <th width='10%'>stok</th>
+                                <th width='13%' style='text-align:center'>option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,6 +103,7 @@
                             <td>$d[jenis]</td>
                             <td>$d[ukuran]</td>
                             <td>$d[ketebalan]</td>
+                            <td>$d[warna]</td>
                             <td>$d[stok]</td>
                             <td style='text-align:center'>
                                 <a href='form_kertas.php?form=edit&kd=$d[kd_kertas]' class='btn-sm btn-secondary'>Edit</a>

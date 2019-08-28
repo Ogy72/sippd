@@ -91,8 +91,10 @@
             if(isset($_GET["form"])){
 
                 $form = $_GET["form"];
-                $biaya->kd_biaya = $_GET["kd"];
+                $biaya->id_biaya = $_GET["kd"];
                 $d = $biaya->read_kd();
+                $biaya->kd_kertas = $d["kd_kertas"];
+                $kertas = $biaya->read_kertas2();
 
                 /* form edit data biaya */
                 echo "
@@ -103,16 +105,10 @@
                     <h3 class='h4 text-black mb-2'>Edit Data Biaya</h3>
                     <form action='../controller/controller_biaya.php' method='post'>
                         <div class='form-row'>
-                            <div class='form-group col-12'>
-                                <label for='kd-biaya'>Kode Biaya</label>
-                                <input class='form-control' type='text' name='kd_biaya2' value='$d[kd_biaya]' required>
-                                <input type='hidden' name='kd_biaya' value='$d[kd_biaya]'>
-                            </div>
-                        </div>
-                        <div class='form-row'>
                              <div class='form-group col-6'>
                                 <label for='label-biaya'>Label Biaya</label>
                                 <input class='form-control' type='text' name='label_biaya' value='$d[label_biaya]' required>
+                                <input type='hidden' name='id_biaya' value='$d[id_biaya]'>
                             </div>
                             <div class='form-group col-6'>
                                 <label for='kategori'>Kategori</label>
@@ -129,7 +125,18 @@
                             </div>  
                         </div>
                         <div class='form-group form-row'>
-                            <div class='col-12'>
+                            <div class='col-6'>
+                                <label for='kertas'>Kertas</label>
+                                <select class='form-control' name='kertas' required>
+                                    <option value='$d[kd_kertas]' selected>$d[jenis]($d[warna]) - $d[ukuran]($d[ketebalan])</option>";
+                                    foreach($kertas as $k){
+                                    echo "
+                                    <option value='$k[kd_kertas]'>$k[jenis]($k[warna]) - $k[ukuran]($k[ketebalan])</option>";
+                                    }
+                                    echo "
+                                </select>
+                            </div>
+                            <div class='col-6'>
                                 <label for='biaya'>Biaya</label>
                                 <input class='form-control' type='text' name='biaya' value='$d[biaya]' required>
                             </div>
@@ -153,12 +160,6 @@
                     <h3 class='h4 text-black mb-2'>Input Data Biaya</h3>
                     <form action='../controller/controller_biaya.php' method='post'>
                         <div class='form-row'>
-                            <div class='form-group col-12'>
-                                <label for='kd-kertas'>Kode Biaya</label>
-                                <input class='form-control' type='text' name='kd_biaya' required placeholder='Masukkan Kode Biaya'>
-                            </div>
-                        </div>
-                        <div class='form-row'>
                             <div class='form-group col-6'>
                                 <label for='label-biaya'>Label Biaya</label>
                                 <input class='form-control' type='text' name='label_biaya' required placeholder='Masukkan Label Biaya'>
@@ -173,7 +174,19 @@
                             </div>
                         </div>
                         <div class='form-group form-row'>
-                            <div class='col-12'>
+                            <div class='col-6'>
+                                <label for='kertas'>Kertas</label>
+                                <select class='form-control' name='kertas' required>
+                                    <option selected>Pilih kertas yang digunakan</option>";
+                                    $kertas = $biaya->read_kertas();
+                                    foreach($kertas as $k){
+                                    echo "
+                                    <option value='$k[kd_kertas]'>$k[jenis]($k[warna]) - $k[ukuran]($k[ketebalan])</option>";
+                                    }
+                                    echo "
+                                </select>
+                            </div>
+                            <div class='col-6'>
                                 <label for='biaya'>Biaya</label>
                                 <input class='form-control' type='text' name='biaya' required placeholder='Masukkan Biaya'>
                             </div>

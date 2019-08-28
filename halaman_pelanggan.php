@@ -55,7 +55,7 @@
                     <?php echo $nama; ?>
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Pesanan Saya</a>
+                    <a class="dropdown-item" href="view/pesanan_saya.php">Pesanan Saya</a>
                     <a class="dropdown-item" href="#">History Pemesanan</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="view/manage_akun.php?usr=<?php echo $username ?>">Manage Akun</a>
@@ -83,7 +83,7 @@
                         <?php echo $nama; ?>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Pesanan Saya</a>
+                        <a class="dropdown-item" href="view/pesanan_saya.php">Pesanan Saya</a>
                         <a class="dropdown-item" href="#">History Pemesanan</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="view/manage_akun.php?usr=<?php echo $username ?>">Manage Akun</a>
@@ -109,32 +109,148 @@
     <!-- home section -->
     <div class="intro-section" id="home-section">
     
-      <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('images/hero_1.jpg'); overflow:auto;" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row set-top" style="padding-top:180px">
             <div class="col-12">
 
               <div class="row">
+                <?php 
+                    include_once "model/class_pemesanan.php";
+                    $psn = new pemesanan();
+                    $date = date('Y-m-d');
+                ?>
                 
-                <div class="col-lg-2"></div>
-
                 <!-- from login -->
-                <div class="col-lg-8 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
-                  <form action="cek_login.php" method="post" class="form-box">
-                    <h3 class="h4 text-black mb-4">From Pemesanan</h3>
-                    <div class="form-group">
-                      <input type="text" name="username" class="form-control" placeholder="Email atau Username" required>
+                <div class="col-12 col-sm-12 col-lg-12 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
+                  <form action="controller/controller_pesanan.php" method="post" class="form-box" enctype='multipart/form-data'>
+                    <div class='form-row'>
+                        <h3 class="h4 text-black col-12 col-sm-8 col-lg-8">From Pemesanan</h3>
+                        <div class='form-group col-12 col-sm-4 col-lg-4'>
+                            <input type='text' name='kd_pesanan' class='form-control-plaintext text-right text-black-50' value='<?php echo $psn->auto_kd() ?>' readonly>
+                            <input type='hidden' name='username' value='<?php echo $username; ?>'>
+                            <input type='hidden' name='date' value="<?php echo $date; ?>">
+                        </div>
                     </div>
-                    <div class="form-group">
-                      <input type="password" name="password" class="form-control" placeholder="Password" required>
-                    </div> 
-                    <div class="form-group">
-                      <input type="submit" name="login" class="btn btn-primary btn-pill" value="Login">
+                    <div class='form-group row'>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='file' class='text-body'>Unggah File Dokumen</label>
+                            <input class='form-control-file' type="file" name='file' required>
+                        </div>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='jenisdoc' class='text-body'>Pilih Jenis Dokumen</label>
+                            <select class='form-control' name='jenis_doc' id='jenis-doc' required>
+                                <option selected>Jenis Dokumen</option>
+                                <option value="Skripsi">Skripsi</option>
+                                <option value="Makalah Hard Cover">Makalah Hard Cover</option>
+                                <option value="Makalah Soft Cover">Makalah Soft Cover</option>
+                                <option value="Buku Hard Cover">Buku Hard Cover</option>
+                                <option value="Buku Soft Cover">Buku Soft Cover</option>
+                                <option value="Browsur">Browsur</option>
+                            </select>
+                        </div>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='halaman' class='text-body'>Jumlah Halaman</label>
+                            <input class='form-control' type="text" name='halaman'  placeholder='Masukkan Jumlah Halaman' required>
+                        </div>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='copy' class='text-body'>Jumlah Copy</label>
+                            <input class='form-control' type="text" name='copy'  placeholder='Banyaknya dokumen dicetak ?' required>
+                        </div>
+                    </div>
+                    <div class='form-group row'>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='kertas' class='text-body'>Pilih Kertas & Ukuran</label>
+                            <select class='form-control' name='kertas' required>
+                            <optgroup label='kertas HVS'>
+                            <?php
+                                $rd_hvs = $psn->read_hvs();
+                                foreach($rd_hvs as $h){
+                                    echo "
+                                    <option value='$h[kd_kertas]'>$h[jenis] - $h[ukuran]($h[ketebalan])</option>";
+                                }
+                            ?>
+                            </optgroup>
+                            <optgroup label='kertas Browsur'>
+                            <?php
+                                $rd_browsur = $psn->read_art();
+                                foreach($rd_browsur as $b){
+                                    echo "
+                                    <option value='$b[kd_kertas]'>$b[jenis] - $b[ukuran]($b[ketebalan])</option>";
+                                }
+                            ?>
+                            </optgroup>
+                            </select>
+                        </div>
+                        <div class='form-group col-12 col-sm-3 col-lg-3 cover'>
+                            <label for='Cover' class='text-body'>Pilih Cover</label>
+                            <select class='form-control' name='cover'>
+                            <option value='' selected>Pilih Cover</option>
+                            <optgroup label='Soft Cover Mika'>
+                            <?php
+                                $cover_mika = $psn->cover_mika();
+                                foreach($cover_mika as $m){
+                                    echo "
+                                    <option value='$m[kd_kertas]'>$m[jenis] - $m[ukuran]($m[warna])</option>";
+                                }
+                            ?>
+                            </optgroup>
+                            <optgroup label='Soft Cover Karton'>
+                            <?php
+                                $cover_karton = $psn->cover_karton();
+                                foreach($cover_karton as $ck){
+                                    echo "
+                                    <option value='$ck[kd_kertas]'>$ck[jenis] - $ck[ukuran]($ck[warna])</option>";
+                                }
+                            ?>
+                            </optgroup>
+                            <optgroup label='Hard Cover'>
+                            <?php
+                                $hard_cover = $psn->hard_cover();
+                                foreach($hard_cover as $hc){
+                                    echo "
+                                    <option value='$hc[kd_kertas]'>$hc[jenis] - $hc[ukuran]($hc[warna])</option>";
+                                }
+                            ?>
+                            </optgroup>
+                            <optgroup label='Cover Buku'>
+                            <?php
+                                $cover_buku = $psn->cover_buku();
+                                foreach($cover_buku as $cb){
+                                    echo "
+                                    <option value='$cb[kd_kertas]'>$cb[jenis] - $cb[ukuran]($cb[warna])</option>";
+                                }
+                            ?>
+                            </optgroup>
+                            </select>
+                        </div>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='jenis-print' class='text-body'>Pilih Jenis Print</label>
+                            <select class='form-control' name='jenis_print' required>
+                                <option value="Berwarna">Berwarna</option>
+                                <option value="Hitam Putih">Hitam - Putih</option>
+                            </select>
+                        </div>
+                        <div class='form-group col-12 col-sm-3 col-lg-3'>
+                            <label for='pengiriman' class='text-body'>Pilih Metode Pengiriman</label>
+                            <select class='form-control' name='kurir' required>
+                                <?php
+                                    $rd_kurir = $psn->read_kurir();
+                                    foreach($rd_kurir as $kur){
+                                    echo"
+                                    <option value='$kur[id_kurir]'>$kur[label_kurir]</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row mt-sm-4">
+                        <div class='form-group col-12 col-sm-12 col-lg-12 '>
+                            <input type="submit" name="order" class="btn btn-primary float-right" value="Order">
+                        </div>
                     </div>
                   </form>
                 </div>
-
-                <div class="col-lg-2"></div>
 
               </div>
 
@@ -411,6 +527,18 @@
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
   <script src="js/main.js"></script>
+
+<script>
+            $(document).ready(function(){
+                $('#jenis-doc').change(function(){
+                    if($('#jenis-doc').val() == "Browsur"){
+                        $('.cover').hide();
+                    }
+                    else{ $('.cover').show(); }
+                })
+            })
+
+</script>
     
   </body>
 </html>

@@ -84,28 +84,32 @@
                     <table class="table table-bordered table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th width='25%'>Kode Biaya</th>
-                                <th width='30%'>Label Biaya</th>
-                                <th width='15%'>Kategori</th>
-                                <th width='15%'>Biaya</th>
+                                <th width='5'>No</th>
+                                <th width='35%'>Label Biaya</th>
+                                <th width='10%'>Kategori</th>
+                                <th width='25%'>Kertas</th>
+                                <th width='10%'>Biaya</th>
                                 <th width='15%' style='text-align:center'>option</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php
+                        $no = 1;
                         $rd = $biaya->read_data();
                         foreach($rd as $d){
                             echo "
                             <tr>
-                            <td>$d[kd_biaya]</td>
+                            <td>$no</td>
                             <td>$d[label_biaya]</td>
                             <td>$d[kategori]</td>
+                            <td>$d[jenis]-$d[ukuran]($d[ketebalan])</td>
                             <td>Rp. $d[biaya]</td>
                             <td style='text-align:center'>
-                                <a href='form_biaya.php?form=edit&kd=$d[kd_biaya]' class='btn-sm btn-secondary'>Edit</a>
-                                <a href='../controller/controller_biaya.php?kd=$d[kd_biaya]' class='btn-sm btn-danger'>Hapus</a>
+                                <a href='form_biaya.php?form=edit&kd=$d[id_biaya]' class='btn-sm btn-secondary'>Edit</a>
+                                <a href='../controller/controller_biaya.php?kd=$d[id_biaya]' class='btn-sm btn-danger'>Hapus</a>
                             </td>
                             </tr>";
+                        $no++;
                         }
                         ?>
                         </tbody>

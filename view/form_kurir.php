@@ -90,7 +90,7 @@
         <?php
             if(isset($_GET["form"])){
 
-                $kurir->kd_kurir = $_GET["kd"];
+                $kurir->id_kurir = $_GET["kd"];
                 $d = $kurir->read_bykd();
 
                 /* form edit data kurir */
@@ -103,15 +103,9 @@
                     <form action='../controller/controller_kurir.php' method='post'>
                         <div class='form-row'>
                             <div class='form-group col-12'>
-                                <label for='kd-kurir'>Kode Kurir</label>
-                                <input class='form-control' type='text' name='kd_kurir2' value='$d[kd_kurir]' required placeholder='Masukkan Kode Kurir'>
-                                <input type='hidden' name='kd_kurir' value='$d[kd_kurir]'>
-                            </div>
-                        </div>
-                        <div class='form-row'>
-                            <div class='form-group col-12'>
                                 <label for='label-kurir'>Label Kurir</label>
                                 <input class='form-control' type='text' name='label_kurir' value='$d[label_kurir]' required placeholder='Masukkan Label Kurir'>
+                                <input type='hidden' value='$d[id_kurir]' name='id_kurir'>
                             </div>
                         </div>
                         <div class='form-group form-row'>
@@ -142,12 +136,6 @@
                     <div class='form-box' style='color:black'>
                     <h3 class='h4 text-black mb-2'>Input Data Kurir</h3>
                     <form action='../controller/controller_kurir.php' method='post'>
-                        <div class='form-row'>
-                            <div class='form-group col-12'>
-                                <label for='kd-kurir'>Kode Kurir</label>
-                                <input class='form-control' type='text' name='kd_kurir' required placeholder='Masukkan Kode Kurir'>
-                            </div>
-                        </div>
                         <div class='form-row'>
                             <div class='form-group col-12'>
                                 <label for='label-kurir'>Label Kurir</label>

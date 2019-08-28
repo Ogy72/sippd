@@ -86,8 +86,8 @@
                     <table class="table table-bordered table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th width='25%'>Kode Kurir</th>
-                                <th width='30%'>Label Kurir</th>
+                                <th width='15%'>No</th>
+                                <th width='35%'>Label Kurir</th>
                                 <th width='15%'>Tarif Minimum</th>
                                 <th width='15%'>Tarif/Km</th>
                                 <th width='15%' style='text-align:center'>option</th>
@@ -95,19 +95,21 @@
                         </thead>
                         <tbody>
                         <?php
+                        $no = 1;
                         $rd = $kurir->read_data();
                         foreach($rd as $d){
                             echo "
                             <tr>
-                            <td>$d[kd_kurir]</td>
+                            <td>$no</td>
                             <td>$d[label_kurir]</td>
                             <td>Rp. $d[tarif_min]</td>
                             <td>Rp. $d[tarif_km]</td>
                             <td style='text-align:center'>
-                                <a href='form_kurir.php?form=edit&kd=$d[kd_kurir]' class='btn-sm btn-secondary'>Edit</a>
-                                <a href='../controller/controller_kurir.php?kd=$d[kd_kurir]' class='btn-sm btn-danger'>Hapus</a>
+                                <a href='form_kurir.php?form=edit&kd=$d[id_kurir]' class='btn-sm btn-secondary'>Edit</a>
+                                <a href='../controller/controller_kurir.php?kd=$d[id_kurir]' class='btn-sm btn-danger'>Hapus</a>
                             </td>
                             </tr>";
+                        $no++;
                         }
                         ?>
                         </tbody>
