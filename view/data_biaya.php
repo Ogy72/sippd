@@ -85,9 +85,9 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th width='5'>No</th>
-                                <th width='35%'>Label Biaya</th>
+                                <th width='30%'>Label Biaya</th>
                                 <th width='10%'>Kategori</th>
-                                <th width='25%'>Kertas</th>
+                                <th width='30%'>Kertas</th>
                                 <th width='10%'>Biaya</th>
                                 <th width='15%' style='text-align:center'>option</th>
                             </tr>

@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="../fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <link rel="stylesheet" href="../css/owl.carousel.min.css">
     <link rel="stylesheet" href="../css/owl.theme.default.min.css">
@@ -29,10 +29,16 @@
         $pesan->username = $_COOKIE["user"];
         $level = $_COOKIE['level'];
         $d = $pesan->read_akun();
+        $msg = "";
 
         if(!isset($_GET["order"])){
             $rd = $pesan->read_order();
             $pesan->kd_pesanan = $rd["kd_pesanan"];
+            if($pesan->kd_pesanan == ""){
+                $msg = "Tidak Ada Pesanan </br> </br> <a href='../halaman_pelanggan.php' class='btn-sm btn-primary'>Kembali</a>";
+            }
+            else { $msg == "";}
+
         }
         else{
             $pesan->kd_pesanan = $_GET["order"];
@@ -84,28 +90,45 @@
     <!-- home section -->
     <div class="intro-section" id="home-section">
     
-      <div class="slide-1" style="background-image: url('../images/hero_1.jpg'); overflow:auto;" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('../images/hero_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
-          <div class="row set-top" style="padding-top:110px">
+          <div class="row set-top">
             <div class="col-12">
 
-              <div class="row">
-                
+            <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100" style='padding-top:385px'>
+            <div class="container">
+                <div class="row">
+
+                <div class="owl-carousel col-12 nonloop-block-15">
+                <?php 
+                    if($msg !== ""){
+                        echo "<h5 class='text-warning' style='text-align:center'>$msg</h5>";
+                    }
+                    else{
+                    $pesanan = $pesan->pesanan_saya();
+                        
+                        foreach($pesanan as $p){
+                        $pesan->kd_pesanan = $p["kd_pesanan"];
+                        $bill_print = $pesan->bill_print();
+                        $bill_jilid = $pesan->bill_jilid();
+                        $bill = $pesan->bill();
+                        $ongkir = $pesan->read_ongkir();
+
+                        if($bill["metode_pembayaran"] == "transfer"){
+                            $transfer_ke = "Transfer ke no-rekening :";
+                            $norek = "BNI 8277-772299";
+                        }
+                        else {
+                            $transfer_ke = "";
+                            $norek = "";
+                        }
+                    echo "
                 <!-- pesanan saya -->
-                <div class="col-12 col-sm-12 col-lg-12 ml-auto" style='color:black' data-aos="fade-up" data-aos-delay="100">
-                    <div class="form-box">
-                        <div class='row'>
-
+                <div class='bg-white  align-self-stretch' style='color:black'>
+                    <div class='course-inner-text py-4 px-4'>
+                        <div class='form-row'>
                             <div class='col-12 col-sm-12 col-lg-12'>
-                                <?php 
-                                    $pesanan = $pesan->read_pesanan();
-
-                                foreach($pesanan as $p){
-                                    $bill_print = $pesan->bill_print();
-                                    $bill_jilid = $pesan->bill_jilid();
-                                    $bill = $pesan->bill();
-                                    $ongkir = $pesan->read_ongkir();
-                                echo "
+                            
                                 <div class='card'> 
                                     <h4 class='card-header text-center'>Pesanan Saya</h4> 
                                     <div class='card-body'>
@@ -113,9 +136,9 @@
                                             <div class='col-12 col-sm-6 col-lg-6'>
                                                 <h6 class='card-title text-body mb-1'> Pesanan : #$p[kd_pesanan]</h6>
                                                 <h6 class='card-title text-body mb-3'> Dipesanan Pada : $p[date]</h6> 
-                                                <h6 class='card-title text-body mb-1'> Transfer ke no-rekening : </h6>
-                                                <h6 class='card-title text-info mb-3'>BNI 8277-772299 A.n Sinar Putri</h6> 
-                                                <h6 class='card-title text-body mb-2'> Jumlah yang harus di Transfer :</h6>
+                                                <h6 class='card-title text-body mb-1'> $transfer_ke </h6>
+                                                <h6 class='card-title text-info mb-3'> $norek </h6> 
+                                                <h6 class='card-title text-body mb-2'> Jumlah yang harus di Bayar :</h6>
                                                 <h5 class='card-title text-danger mb-3'>Rp. $bill[kd_bayar]</h5>
                                                 <h6 class='card-title text-muted mb-3'> Status : $bill[status]</h6>
                                             </div>
@@ -182,23 +205,32 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div><!-- close div card -->";
-                                }
-                            ?>
+                                </div><!-- close div card -->
                             </div>
-
+                            <div class='col-12 text-center'>
+                                <button class='customPrevBtn btn-sm btn-primary mt-4'>Prev</button>
+                                <button class='customNextBtn btn-sm btn-primary mt-4'>Next</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- close pesanan saya -->";
+                        }
+                    }
+                ?>
 
-              </div>
+                </div><!-- close owl-carousel -->
 
-            </div>
-          </div>
-        </div>
-      </div>
+                </div><!-- close class row -->
+            </div><!-- close class container -->
+            </div><!-- close class site-section -->
 
-    </div>
+            </div><!-- close class col-12 -->
+          </div><!-- close row set-top -->
+        </div><!-- close container -->
+      </div><!-- close slide1 -->
+        
+    </div><!-- close intro section -->
 
     <!-- foter section -->
     <footer class="footer-section bg-white" id="contact-section">

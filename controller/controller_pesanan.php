@@ -54,11 +54,17 @@ else if(isset($_GET["kd"])){
 else if(isset($_POST["konfirmasi"])){
     $psn->kd_pesanan = $_POST["kd_pesanan"];
     $psn->payment = $_POST["payment"];
-    $psn->status_pembayaran = "Menunggu Pembayaran";
 
-    $psn->update_pembayaran();
-    header("location:../view/pesanan_saya.php?order=$psn->kd_pesanan");
-
+    if($psn->payment == "transfer"){
+        $psn->status_pembayaran = "Menunggu Pembayaran";
+        $psn->update_pembayaran();
+        header("location:../view/pesanan_saya.php?order=$psn->kd_pesanan");
+    }
+    else{
+        $psn->status_pembayaran = "Menunggu Konfirmasi";
+        $psn->update_pembayaran();
+        header("location:../view/pesanan_saya.php?order=$psn->kd_pesanan");
+    }
 }
 else{ echo "logika Kontrol masih salah Ogy .. "; }
 

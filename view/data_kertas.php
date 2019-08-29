@@ -84,11 +84,11 @@
                     <table class="table table-bordered table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th width='17%'>Kode Kertas</th>
-                                <th width='15%'>jenis</th>
-                                <th width='15%'>ukuran</th>
-                                <th width='15%'>ketebalan</th>
-                                <th width='15%'>Warna</th>
+                                <th width='15%'>Kode Kertas</th>
+                                <th width='27%'>jenis</th>
+                                <th width='12%'>ukuran</th>
+                                <th width='12%'>ketebalan</th>
+                                <th width='12%'>Warna</th>
                                 <th width='10%'>stok</th>
                                 <th width='13%' style='text-align:center'>option</th>
                             </tr>

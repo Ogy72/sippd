@@ -48,7 +48,12 @@ class pemesanan{
     }
 
     public function read_pesanan(){
-        return $this->conn->query("SELECT * FROM pesanan WHERE kd_pesanan='$this->kd_pesanan' AND username='$this->username'");
+        $rd = $this->conn->query("SELECT * FROM pesanan WHERE kd_pesanan='$this->kd_pesanan'");
+        return $rd->fetch_array();
+    }
+
+    public function pesanan_saya(){
+        return $this->conn->query("SELECT * FROM pesanan WHERE username='$this->username' ORDER BY kd_pesanan DESC");
     }
 
     public function read_order(){
