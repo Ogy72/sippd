@@ -63,7 +63,7 @@
       </div>
       <div>   
         <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-lg-block m-0 p-0">
-            <li class="cta nav-link"><a href="#contact-section"><span>Hubungi Kami</span></a></li>
+            <li class="cta nav-link"><a href="../halaman_pelanggan.php"><span>Beranda</span></a></li>
         </ul>
       </div>
     </div>
@@ -77,7 +77,7 @@
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
-                <li class="cta"><a href="#contact-section" class="nav-link"><span>Hubungi Kami</span></a></li>
+                <li class="cta nav-link"><a href="../halaman_pelanggan.php"><span>Beranda</span></a></li>
               </ul>
             </nav>
             <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
@@ -95,7 +95,7 @@
           <div class="row set-top">
             <div class="col-12">
 
-            <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100" style='padding-top:385px'>
+            <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100" style='padding-top:385px; overflow:auto;'>
             <div class="container">
                 <div class="row">
 
@@ -114,13 +114,44 @@
                         $bill = $pesan->bill();
                         $ongkir = $pesan->read_ongkir();
 
-                        if($bill["metode_pembayaran"] == "transfer"){
+                        /* var */
+                        $jumlah_bayar = "";
+                        $jenis_doc = "";
+                        $file = "";
+                        $jumlah_hal = "";
+                        $jumlah_copy = "";
+                        $text_total = "";
+
+                        
+                        if($bill["status"] == "dibayar"){
+                            $transfer_ke = "";
+                            $norek = "";
+                            $text_total = "Total Biaya :";
+                            $jumlah_bayar = "Rp. $bill[kd_bayar]";
+                            $jenis_doc = $p["jenis_doc"];
+                            $file = $p["file"];
+                            $jumlah_hal = $p["halaman"];
+                            $jumlah_copy = $p["copy"];
+                        }
+                        else if($bill["metode_pembayaran"] == "transfer"){
                             $transfer_ke = "Transfer ke no-rekening :";
                             $norek = "BNI 8277-772299";
+                            $text_total = "Jumlah yang harus dibayar :";
+                            $jumlah_bayar = "Rp. $bill[kd_bayar]";
+                            $jenis_doc = $p["jenis_doc"];
+                            $file = $p["file"];
+                            $jumlah_hal = $p["halaman"];
+                            $jumlah_copy = $p["copy"];
                         }
                         else {
                             $transfer_ke = "";
                             $norek = "";
+                            $text_total = "Total Biaya :";
+                            $jumlah_bayar = "Rp. $bill[kd_bayar]";
+                            $jenis_doc = $p["jenis_doc"];
+                            $file = $p["file"];
+                            $jumlah_hal = $p["halaman"];
+                            $jumlah_copy = $p["copy"];
                         }
                     echo "
                 <!-- pesanan saya -->
@@ -138,8 +169,11 @@
                                                 <h6 class='card-title text-body mb-3'> Dipesanan Pada : $p[date]</h6> 
                                                 <h6 class='card-title text-body mb-1'> $transfer_ke </h6>
                                                 <h6 class='card-title text-info mb-3'> $norek </h6> 
-                                                <h6 class='card-title text-body mb-2'> Jumlah yang harus di Bayar :</h6>
-                                                <h5 class='card-title text-danger mb-3'>Rp. $bill[kd_bayar]</h5>
+                                                <h6 class='card-title text-body mb-2'> $text_total</h6>
+                                                <h5 class='card-title text-danger mb-3'>$jumlah_bayar</h5>
+                                                <h6 class='card-title text-body mb-2'> Dokumen : $jenis_doc - $file</h6>
+                                                <h6 class='card-title text-body mb-2'> Jumlah Halaman : $jumlah_hal</h6>
+                                                <h6 class='card-title text-body mb-2'> Jumlah Copy : $jumlah_copy</h6>
                                                 <h6 class='card-title text-muted mb-3'> Status : $bill[status]</h6>
                                             </div>
                                             <div class='col-12 col-sm-6 col-lg-6'>
@@ -152,60 +186,47 @@
                                     </div>
                                     
                                     <p style='text-align:center'> 
-                                        <a class='btn-sm btn-secondary' data-toggle='collapse' href='#detail' role='button'>Detail Pesanan</a> 
+                                        <a class='btn-sm btn-secondary' data-toggle='collapse' href='#status_proses' role='button'>Status Proses</a> 
                                     </p>
-                                    <div class='collapse' id='detail'>
+                                    <div class='collapse' id='status_proses'>
                                         <div class='card'>
-                                            <h4 class='card-header text-center'>Detail Pesanan</h4> 
+                                            <h6 class='card-header text-center'>Status Proses Pesanan</h6> 
                                             <div class=' card card-body'>
                                                 <div class='row'>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-body'>Dokumen</h6>
-                                                        <h6 class='card-subtitle text-muted mb-3'>$p[jenis_doc] - $p[file]</h6>
-                                                    </div>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-body'>Jumlah Halaman</h6>
-                                                        <h6 class='card-subtitle text-muted mb-3'>$p[halaman] - Lembar</h6>
-                                                    </div>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-body'>Jumlah Copy</h6>
-                                                        <h6 class='card-subtitle text-muted mb-3'>$p[copy] - Copy</h6>
-                                                    </div>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-body'>Jenis Print</h6>
-                                                        <h6 class='card-subtitle text-muted mb-3'>$p[jenis_print]</h6>
-                                                    </div>
-                                                </div>
-                                                <div class='row'>
                                                     <div class='col-12 col-sm-12 col-lg-12'>
-                                                        <h6 class='card-title text-body'> Pengiriman : $ongkir[label_kurir]</h6>
-                                                    </div>
-                                                </div>
-                                                <div class='row'>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-muted'> Biaya Pengiriman : $ongkir[sub_biaya]</h6>
-                                                    </div>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-muted'> Biaya Print : $bill_print[sub_biaya]</h6>
-                                                    </div>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-muted'> Biaya Jilid : $bill_jilid[sub_biaya]</h6>
-                                                    </div>
-                                                    <div class='col-12 col-sm-3 col-lg-3'>
-                                                        <h6 class='card-title text-muted'> Total Biaya : $bill[total_biaya]</h6>
+                                                        <div class='table-responive table-responsive-sm tablee-responsive-lg'>
+                                                           <table class='table table-hover table-sm'>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width='5%'>#</th>
+                                                                        <th width='35%'>Tanggal dan Waktu Pengerjaan</th>
+                                                                        <th width='45%'>Status Proses</th>  
+                                                                        <th width='15%'>Dikerjakan Oleh</th>  
+                                                                     </tr>
+                                                                </thead>
+                                                                <tbody>";
+                                                                    $tracking = $pesan->read_tracking();
+                                                                    $no = 1;
+                                                                    foreach($tracking as $t){
+                                                                    echo "
+                                                                    <tr>
+                                                                        <td>$no</td>
+                                                                        <td>$t[date_time]</td>
+                                                                        <td>$t[status_pengerjaan]</td>
+                                                                        <td>$t[nama]</td>
+                                                                    </tr>";
+                                                                    $no++;
+                                                                    }
+                                                                echo "
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div><!-- close collapse -->
-                                    <div class='card-footer '>
-                                        <div class='row'>
-                                            <div class='col-12 col-sm-12 col-lg-12'>
-                                                <a href='../halaman_pelanggan.php' class='btn-sm btn-danger float-right'>Kembali</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- close div card -->
+                                        </div><!-- close card -->
+                                    </div><!-- close div collapase -->
+                                </div><!-- close card -->
                             </div>
                             <div class='col-12 text-center'>
                                 <button class='customPrevBtn btn-sm btn-primary mt-4'>Prev</button>

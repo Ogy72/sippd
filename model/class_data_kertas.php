@@ -11,6 +11,7 @@ class data_kertas{
     public $warna;
     public $jumlah;
     public $stok;
+    public $new_stok;
     public $conn;
 
     public function __construct(){
@@ -80,6 +81,10 @@ class data_kertas{
         return $this->conn->query(
             "UPDATE data_kertas SET kd_kertas='$this->kd_kertas2', jenis='$this->jenis', ukuran='$this->ukuran', ketebalan='$this->ketebalan', warna='$this->warna', stok='$this->stok' WHERE kd_kertas='$this->kd_kertas'"
         );
+    }
+
+    public function update_stok(){
+        return $this->conn->query("UPDATE data_kertas SET stok='$this->new_stok' WHERE kd_kertas='$this->kd_kertas'");
     }
 
     public function delete_data(){

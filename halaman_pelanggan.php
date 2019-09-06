@@ -26,13 +26,23 @@
         $email = $_COOKIE['email'];
         $nama = $_COOKIE['nama'];
         $level = $_COOKIE['level'];
+        $pesan = "";
 
         if($level !== "pelanggan"){
             header("location:index.php");
         }
 
         include_once "model/class_informasi.php";
-            $inf = new informasi();
+        $inf = new informasi();
+
+        if(isset($_GET["msg"])){
+            $msg = $_GET["msg"];
+            if($msg == "unstok"){
+                $pesan = "*Mohon Maaf Kertas Sedang Tidak Tersedia/Habis";
+            }
+            else { $pesan == ""; }
+        }
+
     ?>
   </head>
   <body data-spy='scroll' data-target='.site-navbar-target' data-offset='300'>
@@ -125,7 +135,8 @@
                 <div class="col-12 col-sm-12 col-lg-12 ml-auto mt-3" data-aos="fade-up" data-aos-delay="500">
                   <form action="controller/controller_pesanan.php" method="post" class="form-box" enctype='multipart/form-data'>
                     <div class='form-row'>
-                        <h3 class="h4 text-black col-12 col-sm-8 col-lg-8">From Pemesanan</h3>
+                        <h3 class="h4 text-black col-12 col-sm-3 col-lg-3">From Pemesanan</h3>
+                        <div class="col-12 col-sm-5 col-lg-5 text-form text-small text-danger"><?php echo $pesan ?></div>
                         <div class='form-group col-12 col-sm-4 col-lg-4'>
                             <input type='text' name='kd_pesanan' class='form-control-plaintext text-right text-black-50' value='<?php echo $psn->auto_kd() ?>' readonly>
                             <input type='hidden' name='username' value='<?php echo $username; ?>'>
