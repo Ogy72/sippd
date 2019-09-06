@@ -63,7 +63,18 @@ class pemesanan{
     }
 
     public function pesanan_saya(){
-        return $this->conn->query("SELECT * FROM pesanan WHERE username='$this->username' AND status!='ditolak' ORDER BY kd_pesanan DESC");
+        return $this->conn->query("SELECT pesanan.*, pembayaran.total_biaya FROM pesanan, pembayaran WHERE pesanan.kd_pesanan=pembayaran.kd_pesanan AND username='$this->username'");
+    }
+
+    public function read_status(){
+        $this->tracking->kd_pesanan = $this->kd_pesanan;
+        $rd = $this->tracking->read_status();
+        return $rd->fetch_array();
+    }
+
+    public function detail_pesanan_saya(){
+        $rd = $this->conn->query("SELECT * FROM pesanan WHERE kd_pesanan='$this->kd_pesanan'");
+        return $rd->fetch_array();
     }
 
     public function read_order(){
@@ -267,7 +278,7 @@ class pemesanan{
 
     public function tolak_pesanan(){
         $this->conn->query("UPDATE pesanan SET status='ditolak' WHERE kd_pesanan='$this->kd_pesanan'");
-        $this->conn->query("UPDATE pembayaran SET tgl_bayar=NOW(), status='Pesanan Ditolak' WHERE kd_pesanan='$this->kd_pesanan'");
+        $this->conn->query("UPDATE pembayaran SET tgl_bayar=NOW(), status='Pesanan Ditolak', total_biaya='-' WHERE kd_pesanan='$this->kd_pesanan'");
     }
 
     public function read_tracking(){

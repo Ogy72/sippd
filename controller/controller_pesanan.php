@@ -64,12 +64,12 @@ else if(isset($_POST["konfirmasi"])){
     if($psn->payment == "transfer"){
         $psn->status_pembayaran = "Menunggu Pembayaran";
         $psn->update_pembayaran();
-        header("location:../view/pesanan_saya.php?order=$psn->kd_pesanan");
+        header("location:../view/detail_pesanan_saya.php?kd_pesanan=$psn->kd_pesanan");
     }
     else{
         $psn->status_pembayaran = "Menunggu Konfirmasi";
         $psn->update_pembayaran();
-        header("location:../view/pesanan_saya.php?order=$psn->kd_pesanan");
+        header("location:../view/detail_pesanan_saya.php?kd_pesanan=$psn->kd_pesanan");
     }
 }
 else if(isset($_POST["konfirmasi_pesanan"])){

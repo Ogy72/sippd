@@ -24,25 +24,10 @@
     <?php
         include_once "../model/class_pemesanan.php";
         $pesan = new pemesanan();
-        
+
         $pesan->akun->username = $_COOKIE["user"];
         $pesan->username = $_COOKIE["user"];
         $level = $_COOKIE['level'];
-        $d = $pesan->read_akun();
-        $msg = "";
-
-        if(!isset($_GET["order"])){
-            $rd = $pesan->read_order();
-            $pesan->kd_pesanan = $rd["kd_pesanan"];
-            if($pesan->kd_pesanan == ""){
-                $msg = "Tidak Ada Pesanan </br> </br> <a href='../halaman_pelanggan.php' class='btn-sm btn-primary'>Kembali</a>";
-            }
-            else { $msg == "";}
-
-        }
-        else{
-            $pesan->kd_pesanan = $_GET["order"];
-        }
 
         if($level !== "pelanggan"){
             header("location:../index.php");
@@ -77,7 +62,7 @@
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
-                <li class="cta nav-link"><a href="../halaman_pelanggan.php"><span>Beranda</span></a></li>
+                <li class="cta"><a href="../halaman_pelanggan.php" class="nav-link"><span>Beranda</span></a></li>
               </ul>
             </nav>
             <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
@@ -90,168 +75,82 @@
     <!-- home section -->
     <div class="intro-section" id="home-section">
     
-      <div class="slide-1" style="background-image: url('../images/hero_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('../images/hero_1.jpg'); overflow:auto;" data-stellar-background-ratio="0.5">
         <div class="container">
-          <div class="row set-top">
+          <div class="row set-top" style="padding-top:110px">
             <div class="col-12">
 
-            <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100" style='padding-top:385px; overflow:auto;'>
-            <div class="container">
-                <div class="row">
+            <div class="row">
 
-                <div class="owl-carousel col-12 nonloop-block-15">
-                <?php 
-                    if($msg !== ""){
-                        echo "<h5 class='text-warning' style='text-align:center'>$msg</h5>";
-                    }
-                    else{
-                    $pesanan = $pesan->pesanan_saya();
-                        
-                        foreach($pesanan as $p){
-                        $pesan->kd_pesanan = $p["kd_pesanan"];
-                        $bill_print = $pesan->bill_print();
-                        $bill_jilid = $pesan->bill_jilid();
-                        $bill = $pesan->bill();
-                        $ongkir = $pesan->read_ongkir();
+                <!-- detail pesanan -->
+                <div class="col-12 col-sm-12 col-lg-12 ml-auto" style='color:black' data-aos="fade-up" data-aos-delay="100">
+                    <div class="form-box">
+                        <div class='row'>
 
-                        /* var */
-                        $jumlah_bayar = "";
-                        $jenis_doc = "";
-                        $file = "";
-                        $jumlah_hal = "";
-                        $jumlah_copy = "";
-                        $text_total = "";
-
-                        
-                        if($bill["status"] == "dibayar"){
-                            $transfer_ke = "";
-                            $norek = "";
-                            $text_total = "Total Biaya :";
-                            $jumlah_bayar = "Rp. $bill[kd_bayar]";
-                            $jenis_doc = $p["jenis_doc"];
-                            $file = $p["file"];
-                            $jumlah_hal = $p["halaman"];
-                            $jumlah_copy = $p["copy"];
-                        }
-                        else if($bill["metode_pembayaran"] == "transfer"){
-                            $transfer_ke = "Transfer ke no-rekening :";
-                            $norek = "BNI 8277-772299";
-                            $text_total = "Jumlah yang harus dibayar :";
-                            $jumlah_bayar = "Rp. $bill[kd_bayar]";
-                            $jenis_doc = $p["jenis_doc"];
-                            $file = $p["file"];
-                            $jumlah_hal = $p["halaman"];
-                            $jumlah_copy = $p["copy"];
-                        }
-                        else {
-                            $transfer_ke = "";
-                            $norek = "";
-                            $text_total = "Total Biaya :";
-                            $jumlah_bayar = "Rp. $bill[kd_bayar]";
-                            $jenis_doc = $p["jenis_doc"];
-                            $file = $p["file"];
-                            $jumlah_hal = $p["halaman"];
-                            $jumlah_copy = $p["copy"];
-                        }
-                    echo "
-                <!-- pesanan saya -->
-                <div class='bg-white  align-self-stretch' style='color:black'>
-                    <div class='course-inner-text py-4 px-4'>
-                        <div class='form-row'>
                             <div class='col-12 col-sm-12 col-lg-12'>
-                            
                                 <div class='card'> 
-                                    <h4 class='card-header text-center'>Pesanan Saya</h4> 
+                                    <h4 class='card-header text-center'>Daftar Pesanan Saya</h4> 
                                     <div class='card-body'>
-                                        <div class='row'>
-                                            <div class='col-12 col-sm-6 col-lg-6'>
-                                                <h6 class='card-title text-body mb-1'> Pesanan : #$p[kd_pesanan]</h6>
-                                                <h6 class='card-title text-body mb-3'> Dipesanan Pada : $p[date]</h6> 
-                                                <h6 class='card-title text-body mb-1'> $transfer_ke </h6>
-                                                <h6 class='card-title text-info mb-3'> $norek </h6> 
-                                                <h6 class='card-title text-body mb-2'> $text_total</h6>
-                                                <h5 class='card-title text-danger mb-3'>$jumlah_bayar</h5>
-                                                <h6 class='card-title text-body mb-2'> Dokumen : $jenis_doc - $file</h6>
-                                                <h6 class='card-title text-body mb-2'> Jumlah Halaman : $jumlah_hal</h6>
-                                                <h6 class='card-title text-body mb-2'> Jumlah Copy : $jumlah_copy</h6>
-                                                <h6 class='card-title text-muted mb-3'> Status : $bill[status]</h6>
-                                            </div>
-                                            <div class='col-12 col-sm-6 col-lg-6'>
-                                                <h5 class='card-subtitle text-body mb-3'> Pemesana : $d[nama]</h5>
-                                                
-                                                <h6 class='card-title text-body'>Alamat</h6>
-                                                <h6 class='card-subtitle text-muted'>$d[alamat]</h6>
-                                            </div>
+                                        <div class='table-responive table-responsive-sm table-responsive-lg'>
+                                            <table class='table table-hover table-sm'>
+                                                <thead>
+                                                    <tr>
+                                                        <th width='14%'>Tgl Pemesanan</th>
+                                                        <th width='10%'>#Pesanan</th>
+                                                        <th width='26%'>Dokumen</th>
+                                                        <th width='11%'>Biaya</th>
+                                                        <th width='32%'>Status</th>
+                                                        <th width='7%'>Option</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    $pesanan_saya = $pesan->pesanan_saya();
+                                                    $status = "";
+                                                    foreach($pesanan_saya as $p){
+                                                        if($p["status"] == "ditolak"){
+                                                            $status = "Pesanan Ditolak";
+                                                        }
+                                                        else if($p["status"] == "dikonfirmasi"){
+                                                            $pesan->kd_pesanan = $p["kd_pesanan"];
+                                                            $rd= $pesan->read_status();
+                                                            $status = $rd["status_pengerjaan"];
+                                                        }
+                                                        else{
+                                                            $status = "Menuggu Konfirmasi";
+                                                        }
+                                                    echo "
+                                                        <tr>
+                                                            <td>$p[date]</td>
+                                                            <td>$p[kd_pesanan]</td>
+                                                            <td>$p[jenis_doc] - $p[file]</td>
+                                                            <td>RP. $p[total_biaya]</td>
+                                                            <td class='text-primary'>$status</td>
+                                                            <td><a href='detail_pesanan_saya.php?kd_pesanan=$p[kd_pesanan]' class='btn-sm btn-primary'>Detail</a></td>
+                                                        </tr>";
+                                                    }
+                                                ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                    
-                                    <p style='text-align:center'> 
-                                        <a class='btn-sm btn-secondary' data-toggle='collapse' href='#status_proses' role='button'>Status Proses</a> 
-                                    </p>
-                                    <div class='collapse' id='status_proses'>
-                                        <div class='card'>
-                                            <h6 class='card-header text-center'>Status Proses Pesanan</h6> 
-                                            <div class=' card card-body'>
-                                                <div class='row'>
-                                                    <div class='col-12 col-sm-12 col-lg-12'>
-                                                        <div class='table-responive table-responsive-sm tablee-responsive-lg'>
-                                                           <table class='table table-hover table-sm'>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th width='5%'>#</th>
-                                                                        <th width='35%'>Tanggal dan Waktu Pengerjaan</th>
-                                                                        <th width='45%'>Status Proses</th>  
-                                                                        <th width='15%'>Dikerjakan Oleh</th>  
-                                                                     </tr>
-                                                                </thead>
-                                                                <tbody>";
-                                                                    $tracking = $pesan->read_tracking();
-                                                                    $no = 1;
-                                                                    foreach($tracking as $t){
-                                                                    echo "
-                                                                    <tr>
-                                                                        <td>$no</td>
-                                                                        <td>$t[date_time]</td>
-                                                                        <td>$t[status_pengerjaan]</td>
-                                                                        <td>$t[nama]</td>
-                                                                    </tr>";
-                                                                    $no++;
-                                                                    }
-                                                                echo "
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!-- close card -->
-                                    </div><!-- close div collapase -->
-                                </div><!-- close card -->
+                                </div>
+                                    <div class='card-footer '>
+                                    </div>
                             </div>
-                            <div class='col-12 text-center'>
-                                <button class='customPrevBtn btn-sm btn-primary mt-4'>Prev</button>
-                                <button class='customNextBtn btn-sm btn-primary mt-4'>Next</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
-                <!-- close pesanan saya -->";
-                        }
-                    }
-                ?>
 
-                </div><!-- close owl-carousel -->
+            </div>
 
-                </div><!-- close class row -->
-            </div><!-- close class container -->
-            </div><!-- close class site-section -->
+        </div>
+      </div>
+    </div>
+  </div>
 
-            </div><!-- close class col-12 -->
-          </div><!-- close row set-top -->
-        </div><!-- close container -->
-      </div><!-- close slide1 -->
-        
-    </div><!-- close intro section -->
+</div>
 
     <!-- foter section -->
     <footer class="footer-section bg-white" id="contact-section">

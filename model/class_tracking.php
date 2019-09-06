@@ -31,6 +31,10 @@ class tracking{
         return $this->conn->query("SELECT tracking.*, user.nama FROM tracking, user WHERE tracking.username=user.username AND kd_pesanan='$this->kd_pesanan'");
     }
 
+    public function read_status(){
+        return $this->conn->query("SELECT * FROM tracking WHERE kd_pesanan='$this->kd_pesanan' ORDER BY date_time DESC LIMIT 1");
+    }
+
     public function detail_tracking(){
         return $this->conn->query("SELECT * FROM tracking WHERE kd_pesanan='$this->kd_pesanan' AND username='$this->username' ORDER BY date_time DESC");
     }

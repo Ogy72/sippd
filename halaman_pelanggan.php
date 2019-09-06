@@ -66,7 +66,6 @@
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="view/pesanan_saya.php">Pesanan Saya</a>
-                    <a class="dropdown-item" href="#">History Pemesanan</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="view/manage_akun.php?usr=<?php echo $username ?>">Manage Akun</a>
                     <a class="dropdown-item" href="logout.php">Logout</a>
@@ -94,7 +93,6 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="view/pesanan_saya.php">Pesanan Saya</a>
-                        <a class="dropdown-item" href="#">History Pemesanan</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="view/manage_akun.php?usr=<?php echo $username ?>">Manage Akun</a>
                         <a class="dropdown-item" href="logout.php">Logout</a>
