@@ -279,6 +279,7 @@ class pemesanan{
     public function tolak_pesanan(){
         $this->conn->query("UPDATE pesanan SET status='ditolak' WHERE kd_pesanan='$this->kd_pesanan'");
         $this->conn->query("UPDATE pembayaran SET tgl_bayar=NOW(), status='Pesanan Ditolak', total_biaya='-' WHERE kd_pesanan='$this->kd_pesanan'");
+        $this->conn->query("UPDATE detail_kertas SET digunakan='' WHERE kd_pesanan='$this->kd_pesanan'");
     }
 
     public function read_tracking(){

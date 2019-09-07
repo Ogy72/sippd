@@ -7,8 +7,15 @@ if(isset($_POST["input"])){
     $track->kd_pesanan = $_POST["kd_pesanan"];
     $track->username = $_POST["username"];
 
-    $track->insert_tracking();
-    header("location:../view/form_tracking.php?kd_pesanan=$track->kd_pesanan");
+    if($track->status_pengerjaan == "Pesanan Telah Diterima Pemilik"){
+        $track->insert_tracking();
+        $track->update_pesanan();
+        header("location:../view/form_tracking.php?kd_pesanan=$track->kd_pesanan");
+    }
+    else{
+        $track->insert_tracking();
+        header("location:../view/form_tracking.php?kd_pesanan=$track->kd_pesanan");
+    }
 }
 else if(isset($_GET["hapus"])){
     $track->id = $_GET["id"];

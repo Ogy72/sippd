@@ -72,7 +72,7 @@
                         <a class="dropdown-item" href="view/data_kurir.php">Data Kurir</a>
                     </div>
                 </li>
-                <li><a href='#' class='nav-link'>Laporan</a></li>
+                <li><a href='view/laporan.php' class='nav-link'>Laporan</a></li>
                 <li><a href='view/data_user.php' class='nav-link'>Kelola User</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><?php echo $nama; ?></a>

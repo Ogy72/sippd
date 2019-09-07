@@ -43,6 +43,10 @@ class tracking{
         return $this->conn->query("DELETE FROM tracking WHERE id='$this->id'");
     }
 
+    public function update_pesanan(){
+        return $this->conn->query("UPDATE pesanan SET status='selesai' WHERE kd_pesanan='$this->kd_pesanan'");
+    }
+
     public function __destruct(){
         $this->conn->close();
     }

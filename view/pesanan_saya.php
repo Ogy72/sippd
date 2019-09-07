@@ -116,6 +116,9 @@
                                                             $rd= $pesan->read_status();
                                                             $status = $rd["status_pengerjaan"];
                                                         }
+                                                        else if($p["status"] == "selesai"){
+                                                            $status = "Pesanan Telah Selesai";
+                                                        }
                                                         else{
                                                             $status = "Menuggu Konfirmasi";
                                                         }
