@@ -20,11 +20,11 @@ class tracking{
     }
 
     public function read_data(){
-        return $this->conn->query("SELECT pesanan.*, pelanggan.* FROM pesanan, pelanggan WHERE pesanan.username=pelanggan.username AND pesanan.status!='ditolak'");
+        return $this->conn->query("SELECT pesanan.*, pelanggan.* FROM pesanan, pelanggan WHERE pesanan.username=pelanggan.username AND pesanan.status!='ditolak' AND pesanan.status!='selesai'");
     }
     
     public function search_read(){
-        return $this->conn->query("SELECT tracking.*, pesanan.*, pelanggan.* FROM tracking, pesanan, pelanggan WHERE tracking.kd_pesanan=pesanan.kd_pesanan AND pesanan.username=pelanggan.username AND tracking.kd_pesanan='$this->kd_pesanan'");
+        return $this->conn->query("SELECT pesanan.*, pelanggan.* FROM pesanan, pelanggan WHERE pesanan.username=pelanggan.username AND pesanan.status!='ditolak' AND pesanan.kd_pesanan='$this->kd_pesanan'");
     }
 
     public function read_tracking(){
