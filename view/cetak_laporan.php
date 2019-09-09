@@ -111,18 +111,20 @@
                                         </thead>
                                         <tbody>";
                                         foreach($laporan_pendapatan as $p){
-                                            $total = $laporan->total_pendapatan() ;
-                                            
-                                            echo"
+                                        echo"
                                             <tr>
                                                 <td>$p[date]</td>
                                                 <td>$p[kd_pesanan]</td>
                                                 <td>$p[jenis_doc]</td>
                                                 <td>$p[total_biaya]</td>
-                                            </tr>
+                                            </tr>";
+                                        }
+                                        $total = $laporan->total_pendapatan();
+                                        foreach($total as $t){
+                                        echo "
                                            <tr>
                                                 <td colspan='3'>Total Pendapatan</td>
-                                                <td colspan='3'>$total[total]</td>
+                                                <td colspan='3'>$t[total]</td>
                                             </tr> ";
                                         }
                                         echo"

@@ -19,8 +19,7 @@ class laporan{
     }
 
     public function total_pendapatan(){
-        $rd = $this->conn->query("SELECT SUM(total_biaya) AS total FROM pembayaran WHERE tgl_bayar BETWEEN '$this->tanggal_awal' AND '$this->tanggal_akhir'");
-        return $rd->fetch_array();
+        return $this->conn->query("SELECT SUM(total_biaya) AS total FROM pembayaran WHERE tgl_bayar BETWEEN '$this->tanggal_awal' AND '$this->tanggal_akhir'");
     }
 
     public function data_kertas(){
